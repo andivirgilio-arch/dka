@@ -2,7 +2,7 @@
 const CACHE = 'dka-v1';
 const ASSETS = [
   './',
-  './gestione_DKA_pediatrica.html',
+  './index.html',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
@@ -27,7 +27,7 @@ self.addEventListener('fetch', e => {
         const copy = resp.clone();
         caches.open(CACHE).then(c => c.put(e.request, copy)).catch(()=>{});
         return resp;
-      }).catch(()=> caches.match('./gestione_DKA_pediatrica.html'))
+      }).catch(()=> caches.match('./index.html'))
     )
   );
 });

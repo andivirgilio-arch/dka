@@ -3,7 +3,7 @@
   "short_name": "DKA Pediatrica",
   "description": "Strumento operativo per la chetoacidosi diabetica in età pediatrica (OPBG / SIEDP) con modalità esercitazione.",
   "lang": "it",
-  "start_url": "./gestione_DKA_pediatrica.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
