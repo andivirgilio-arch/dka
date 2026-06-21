@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Gestione DKA pediatrica - Protocollo OPBG</title>
+<meta name="theme-color" content="#1e3a8a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DKA Pediatrica">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef1f6; --card:#ffffff; --ink:#1a2230; --muted:#6b7686;
+  --line:#e7ebf1; --line2:#eff2f6; --accent:#2563eb; --accent-d:#1d4ed8; --accent-ink:#1e3a8a;
+  --accent-soft:#eef3ff;
+  --indigo:#6d28d9; --indigo-d:#5b21b6; --indigo-bg:#f1ecfe; --indigo-ink:#4c1d95;
+  --green:#16a34a; --green-bg:#ecf8f0; --green-ink:#14622f;
+  --amber:#d97706; --amber-bg:#fdf3e3; --amber-ink:#92560a;
+  --teal:#0d9488; --teal-bg:#e6f6f4; --teal-ink:#0f5e57;
+  --red:#dc2626; --red-bg:#fdecec; --red-ink:#9b1c1c; --pill:#f1f4f9;
+  --sh-sm:0 1px 2px rgba(20,30,55,.06); --sh-md:0 6px 20px rgba(20,30,55,.08); --sh-accent:0 8px 26px rgba(37,99,235,.16);
+  --r:16px; --r-sm:11px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:linear-gradient(180deg,#eef2f8 0%,#e9eef6 40%,#eaf0f7 100%);background-attachment:fixed;color:var(--ink);line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.out,.hero .hbig,.kpi .box .v,.tcount,.sumgrid div span:last-child{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+/* icone SVG coerenti */
+.ico{display:inline-block;width:1em;height:1em;vertical-align:-.15em;flex:0 0 auto}
+.ico svg{display:block;width:100%;height:100%}
+.chip{width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.chip svg{width:18px;height:18px}
+.htag>svg{width:16px;height:16px;flex:0 0 auto}
+.btn>svg{width:16px;height:16px;vertical-align:-3px;margin-right:2px}
+h2>svg{width:20px;height:20px;vertical-align:-4px;margin-right:4px}
+.chip.c1{background:var(--accent-soft);color:var(--accent-d)}
+.chip.c2{background:var(--teal-bg);color:var(--teal-ink)}
+.chip.c3{background:var(--accent-soft);color:var(--accent-d)}
+.chip.c4{background:var(--indigo-bg);color:var(--indigo-d)}
+.chip.c5{background:var(--teal-bg);color:var(--teal-ink)}
+.chip.c6{background:var(--green-bg);color:var(--green-ink)}
+.chip.c7{background:var(--red-bg);color:var(--red)}
+.chip.cK{background:var(--amber-bg);color:var(--amber-ink)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#c7d0dd;border-radius:8px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:#aeb9cc}
+::-webkit-scrollbar-track{background:transparent}
+*{scrollbar-width:thin;scrollbar-color:#c7d0dd transparent}
+header{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 60%,#3b82f6 100%);color:#fff;padding:18px 0;position:sticky;top:0;z-index:50;box-shadow:0 4px 18px rgba(20,30,55,.18)}
+header .hwrap{max-width:1140px;margin:0 auto;padding:0 22px}
+header h1{margin:0;font-size:21px;font-weight:700;letter-spacing:-.015em}
+header .sub{font-size:12.5px;opacity:.85;margin-top:4px;font-weight:400}
+header .credit{margin-top:8px;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 12px}
+header .credit b{font-weight:700}
+header .credit .ico{width:14px;height:14px;opacity:.95}
+.wrap{max-width:1140px;margin:0 auto;padding:22px}
+.layout{display:flex;gap:20px;align-items:flex-start}
+nav.steps{position:sticky;top:calc(var(--headh,96px) + 12px);flex:0 0 214px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:10px;overflow:auto;max-height:calc(100vh - var(--headh,96px) - 28px);box-shadow:var(--sh-sm);align-self:flex-start}
+.timercol{position:sticky;top:calc(var(--headh,96px) + 12px);flex:0 0 256px;display:flex;flex-direction:column;gap:14px;max-height:calc(100vh - var(--headh,96px) - 28px);overflow-y:auto;align-self:flex-start;border-radius:var(--r)}
+.timerpanel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px;flex:0 0 auto;box-shadow:var(--sh-md)}
+.moninfo{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--sh-sm);flex:0 0 auto}
+.moninfo .mi-title{font-weight:700;font-size:14px;color:var(--ink);margin-bottom:6px}
+.moninfo p{margin:0 0 9px;color:var(--muted);font-size:12px;line-height:1.5}
+.moninfo .mi-tab{display:flex;flex-direction:column;gap:5px;margin-bottom:9px}
+.moninfo .mi-tab>div{font-size:11.5px;line-height:1.4;color:var(--ink)}
+.moninfo .mi-tab span{display:inline-block;background:var(--accent-soft);color:var(--accent-d);font-weight:700;border-radius:6px;padding:1px 6px;font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;margin-right:5px}
+.moninfo .mi-sched{font-weight:700;font-size:12px;margin:4px 0 5px;color:var(--ink)}
+.tp-head{font-weight:700;color:var(--ink);font-size:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:9px;border-bottom:1px solid var(--line2)}
+.tp-head .snd{font-size:11px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:4px}
+.tp-head .snd input{width:14px;height:14px;accent-color:var(--accent)}
+.tp-ref{font-size:12px;color:var(--ink);background:var(--accent-soft);border-radius:var(--r-sm);padding:8px 10px;margin-bottom:8px}
+.timerpanel .timer{flex-direction:column;align-items:stretch;gap:7px;padding:11px;margin-bottom:9px}
+.timerpanel .timer .trow{display:flex;align-items:center;gap:6px}
+.timerpanel .tcount{font-size:19px;min-width:0;flex:1;text-align:left;letter-spacing:-.01em}
+.timerpanel .tname{font-size:12.5px;line-height:1.3;font-weight:700}
+.timerpanel .tfreq{font-size:10.5px}
+.timerpanel .btn.sm{padding:5px 10px;font-size:11.5px}
+.timerpanel .tfields{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.timerpanel .ti-field{flex:1 1 46%;min-width:54px;padding:5px 7px;font-size:11.5px}
+.timerpanel .tadd{display:flex;gap:5px;margin-top:6px}
+.timerpanel .ti-time{width:100px;padding:5px 7px;font-size:12px}
+.timerpanel .tadd .btn.sm{padding:5px 9px;font-weight:700}
+.timerpanel .log{margin-top:8px;max-height:150px;overflow:auto}
+.timerpanel .log div{display:flex;align-items:baseline;gap:6px;padding:4px 0;border-bottom:1px solid var(--line2);font-size:11.5px;color:var(--ink)}
+.timerpanel .log .lt{font-weight:700;color:var(--accent-d);flex:0 0 auto}
+.timerpanel .log .lv{flex:1;line-height:1.35}
+.timerpanel .log .dx{color:var(--muted);cursor:pointer;font-size:11px;padding:0 3px;flex:0 0 auto;transition:color .15s}
+.timerpanel .log .dx:hover{color:var(--red)}
+nav.steps button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:0;background:transparent;padding:9px 11px;border-radius:var(--r-sm);cursor:pointer;font-size:13.5px;line-height:1.3;color:var(--ink);font-weight:500;margin-bottom:2px;transition:background .15s,color .15s}
+nav.steps button:hover{background:var(--pill)}
+nav.steps button.active{background:var(--accent);color:#fff;box-shadow:var(--sh-accent)}
+nav.steps .num{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border-radius:7px;padding:0 6px;background:var(--accent-soft);color:var(--accent-d);font-size:11px;font-weight:700}
+nav.steps button.active .num{background:rgba(255,255,255,.22);color:#fff}
+nav.steps button.sub{padding-left:22px;font-size:13px}
+nav.steps .navgroup{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:var(--ink);padding:9px 11px;border-radius:var(--r-sm);margin:4px 0 2px}
+nav.steps .navdiv{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);padding:9px 11px 4px;margin-top:6px;border-top:1px solid var(--line2)}
+nav.steps button.compl .num{background:var(--red-bg);color:var(--red)}
+nav.steps button.compl.active .num{background:rgba(255,255,255,.25);color:#fff}
+main{flex:1;min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-bottom:18px;box-shadow:var(--sh-sm)}
+.card h2{margin:0 0 5px;font-size:18px;color:var(--ink);display:flex;align-items:center;gap:9px;letter-spacing:-.01em;font-weight:700}
+.card h2 .badge{font-size:10.5px;background:var(--accent-soft);color:var(--accent-d);border-radius:20px;padding:3px 10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.card .lead{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+.panel{background:#fafcff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin:12px 0}
+.panel>.panel-t{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent-d);margin:0 0 12px;display:flex;align-items:center;gap:7px}
+.panel>.panel-t .pi{width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent-soft);color:var(--accent-d)}
+.panel>.panel-t .pi svg{width:15px;height:15px}
+h3{font-size:13px;margin:20px 0 9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:600}
+input[type=number],input[type=text],input[type=time],select,textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:var(--r-sm);font-size:14px;background:#fbfcfe;color:var(--ink);transition:border-color .15s,box-shadow .15s;font-family:inherit}
+input:hover,select:hover{border-color:#cdd6e4}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.16);background:#fff}
+.grid{display:grid;gap:13px;align-items:end}
+.grid>div{display:flex;flex-direction:column;min-width:0}
+.grid>div>label{margin-bottom:5px;min-height:30px;display:flex;align-items:flex-end}
+.grid>div>input,.grid>div>select,.grid>div>textarea{margin-top:auto}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:980px){.layout{flex-wrap:wrap}.timercol{order:3;position:static;flex:1 1 100%;max-height:none}}
+@media(max-width:760px){.layout{flex-direction:column}nav.steps{position:static;flex:none;width:100%;display:flex;flex-wrap:wrap;max-height:none}nav.steps button{width:auto}.timercol{max-height:none}.timerpanel{max-height:none}.g2,.g3,.g4{grid-template-columns:1fr 1fr}.card{padding:18px}}
+.chk{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+.chk:last-child{border-bottom:0}
+.chk input{margin-top:2px;width:17px;height:17px;flex:0 0 auto;accent-color:var(--accent)}
+ol.actions{list-style:none;counter-reset:act;padding:0;margin:10px 0 4px}
+ol.actions li{counter-increment:act;display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:9px;background:#fff;transition:background .2s,border-color .2s}
+ol.actions li::before{content:counter(act);flex:0 0 25px;height:25px;line-height:25px;text-align:center;background:var(--accent);color:#fff;border-radius:50%;font-weight:700;font-size:12px;box-shadow:var(--sh-accent)}
+ol.actions li.done{background:var(--green-bg);border-color:#bfe6cd}
+ol.actions li.done::before{background:var(--green);box-shadow:none}
+ol.actions li.done .atext{text-decoration:line-through;color:var(--muted)}
+ol.actions input{width:18px;height:18px;margin-top:2px;flex:0 0 auto;cursor:pointer;accent-color:var(--green)}
+ol.actions .atext{flex:1;font-size:13.5px}
+.result{background:var(--pill);border:1px solid var(--line2);border-radius:var(--r-sm);padding:12px 14px;margin-top:8px;font-size:13.5px}
+.result b{color:var(--accent-d)}
+.out{font-size:15px;font-weight:700;color:var(--accent-d)}
+.hero{background:linear-gradient(135deg,#f4f8ff,#eaf1ff);border:1px solid #d4e0fb;border-radius:var(--r);padding:20px 22px;margin:6px 0;box-shadow:var(--sh-accent);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(var(--accent),var(--accent-d))}
+.hero .htag{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--accent-d);margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.hero .htag .ico{width:16px;height:16px}
+.hero .hbig{font-size:36px;font-weight:800;color:var(--accent-ink);line-height:1.05;margin:3px 0;letter-spacing:-.02em}
+.hero .hbig small{font-size:18px;font-weight:700;color:var(--accent-d)}
+.hero .hsub{font-size:13.5px;color:#33508a;margin-top:7px}
+.hero .hmax{display:inline-block;background:#fff;border:1px solid #cdddf9;border-radius:20px;padding:3px 13px;font-size:12.5px;font-weight:700;color:var(--accent-d);margin-top:10px}
+.hero.k{background:linear-gradient(135deg,#fff7e9,#ffeecf);border-color:#f3dcae}
+.hero.k::before{background:linear-gradient(#f59e0b,#d97706)}
+.hero.k .htag,.hero.k .hbig{color:#92560a}
+.hero.k .hbig small{color:#b45309}
+.hero.k .hsub{color:#7a5410}
+.hero.k .hmax{color:#92560a;border-color:#f1d59e;background:#fffdf8}
+.hero.ins{background:linear-gradient(135deg,#f6f2fe,#efe9fd);border-color:#ddccf7}
+.hero.ins::before{background:linear-gradient(var(--indigo),var(--indigo-d))}
+.hero.ins .htag,.hero.ins .hbig{color:var(--indigo-ink)}
+.hero.ins .hbig small{color:var(--indigo-d)}
+.hero.ins .hsub{color:#4a3a7a}
+.hero.ins .hmax{color:var(--indigo-d);border-color:#ddccf7;background:#fbf9ff}
+@media print{.hero{box-shadow:none}}
+.btn{background:var(--accent);color:#fff;border:0;padding:9px 16px;border-radius:var(--r-sm);font-size:13.5px;cursor:pointer;font-weight:600;transition:background .15s,transform .05s,box-shadow .15s;box-shadow:var(--sh-sm)}
+.btn:hover{background:var(--accent-d);box-shadow:var(--sh-accent)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:var(--accent-soft);color:var(--accent-d);box-shadow:none}
+.btn.ghost:hover{background:#e0ebff;box-shadow:none}
+.btn.sm{padding:6px 11px;font-size:12px}
+.btn.red{background:var(--red)}
+.btn.red:hover{background:#b91c1c}
+.alert{border-radius:var(--r-sm);padding:12px 14px;font-size:13px;margin:10px 0;border:1px solid transparent}
+.alert.warn{background:var(--amber-bg);border-color:#f6e2bd;border-left:4px solid var(--amber);color:var(--amber-ink)}
+.alert.danger{background:var(--red-bg);border-color:#f6cfcf;border-left:4px solid var(--red);color:var(--red-ink)}
+.alert.ok{background:var(--green-bg);border-color:#c5e7d2;border-left:4px solid var(--green);color:var(--green-ink)}
+.alert.info{background:var(--accent-soft);border-color:#d4e0fb;border-left:4px solid var(--accent);color:var(--accent-ink)}
+.sev{display:inline-block;padding:4px 13px;border-radius:20px;font-weight:700;font-size:13px;letter-spacing:.3px}
+.sev.mod{background:#fff4d6;color:#8d6e00}
+.sev.med{background:#ffe6d2;color:#a64b00}
+.sev.sev{background:var(--red-bg);color:var(--red)}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;margin-top:10px;border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
+th,td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:8px 9px;text-align:center}
+tr td:last-child,tr th:last-child{border-right:0}
+tr:last-child td{border-bottom:0}
+th{background:var(--accent-soft);color:var(--accent-d);font-weight:700}
+.timer{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:var(--r-sm);padding:13px 15px;margin-bottom:10px;transition:.2s;background:#fff}
+.timer.due{background:var(--red-bg);border-color:var(--red);animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.35)}50%{box-shadow:0 0 0 6px rgba(220,38,38,0)}}
+.timer .tl{flex:1}
+.timer .tname{font-weight:700;font-size:14px}
+.timer .tfreq{font-size:11.5px;color:var(--muted)}
+.timer .tcount{font-variant-numeric:tabular-nums;font-size:22px;font-weight:700;color:var(--accent-d);min-width:78px;text-align:center;letter-spacing:-.01em}
+.timer.due .tcount{color:var(--red)}
+.pill{display:inline-block;background:var(--pill);border-radius:20px;padding:2px 10px;font-size:11.5px;color:var(--accent-d);margin:2px 3px 0 0}
+.log{font-size:12px;color:var(--muted);margin-top:6px;max-height:120px;overflow:auto}
+.log div{padding:2px 0;border-bottom:1px solid var(--line2)}
+.hidden{display:none}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:var(--r-sm);padding:7px 14px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--muted);transition:.15s}
+.tabs button:hover{border-color:var(--accent);color:var(--accent-d)}
+.tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:var(--sh-accent)}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+small.note{color:var(--muted);font-size:11.5px;display:block;margin-top:5px;line-height:1.5}
+.kpi{display:flex;gap:11px;flex-wrap:wrap}
+.kpi .box{flex:1;min-width:118px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-sm);padding:11px 13px;box-shadow:var(--sh-sm)}
+.kpi .box .k{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.kpi .box .v{font-size:18px;font-weight:700;color:var(--accent-d);margin-top:2px}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.madeby{text-align:center;margin:18px auto 0;font-size:13px;color:var(--ink)}
+.madeby b{color:var(--accent-d);font-weight:700}
+.footnote{font-size:11.5px;color:var(--muted);text-align:center;padding:10px 14px 18px;line-height:1.6}
+.guidesel{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 12px;font-size:13px;backdrop-filter:blur(4px)}
+.guidesel span{font-weight:700;margin-right:4px}
+.guidesel label{display:inline-flex;align-items:center;gap:6px;color:#fff;font-weight:500;cursor:pointer;margin:0;padding:5px 11px;border-radius:8px;transition:background .15s}
+.guidesel label:hover{background:rgba(255,255,255,.14)}
+.guidesel input{width:16px;height:16px;cursor:pointer;accent-color:#000}
+.glnote{font-size:11px;color:var(--muted);font-style:italic;margin-top:3px}
+.nextwrap{margin-top:22px;padding-top:16px;border-top:1px solid var(--line2)}
+.nextbtn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;border:0;cursor:pointer;
+  background:linear-gradient(135deg,#eef3ff,#e3ecff);border:1px solid #d4e0fb;border-radius:var(--r);padding:14px 18px;
+  color:var(--accent-ink);font-size:14px;font-weight:600;transition:.15s;box-shadow:var(--sh-sm)}
+.nextbtn:hover{background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;border-color:var(--accent);box-shadow:var(--sh-accent);transform:translateY(-1px)}
+.nextbtn .nbl{display:flex;flex-direction:column;gap:1px}
+.nextbtn .nbl small{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;opacity:.75}
+.nextbtn .nba{font-size:24px;line-height:1;flex:0 0 auto}
+/* dettagli collassabili */
+details.det{margin:8px 0;border:1px solid var(--line);border-radius:var(--r-sm);background:#fbfcfe;overflow:hidden}
+details.det>summary{cursor:pointer;list-style:none;padding:9px 12px;font-size:12.5px;font-weight:600;color:var(--accent-d);display:flex;align-items:center;gap:6px;user-select:none}
+details.det>summary::-webkit-details-marker{display:none}
+details.det>summary::before{content:"▸";font-size:11px;transition:transform .15s;color:var(--muted)}
+details.det[open]>summary::before{transform:rotate(90deg)}
+details.det>summary:hover{background:var(--pill)}
+details.det .dbody{padding:0 13px 12px;font-size:13px;color:var(--ink)}
+details.det .dbody>:first-child{margin-top:6px}
+details.det.danger{border-color:var(--red);background:var(--red-bg)}
+details.det.danger>summary{color:var(--red-ink)}
+details.det.danger>summary:hover{background:#fbdcdc}
+details.det.danger>summary::before{color:var(--red)}
+/* validazione input fuori range */
+input.bad{border-color:var(--red)!important;background:#fff6f6!important;box-shadow:0 0 0 3px rgba(220,38,38,.12)!important}
+.badmsg{color:var(--red);font-size:11px;font-weight:600;margin-top:3px}
+/* barra "cosa fare adesso" (dentro l'header) */
+.nowbar{margin-top:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:8px;color:#fff;padding:7px 12px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+.nowbar b{font-weight:700}
+.nowbar .nb-i{display:inline-flex;align-items:baseline;gap:5px}
+.nowbar .nb-lbl{opacity:.72;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px}
+.nowbar.empty{display:none}
+/* interruttore modalità + trainer */
+.modetoggle{display:flex;margin-top:12px;border:1px solid rgba(255,255,255,.55);border-radius:10px;overflow:hidden;width:100%;max-width:540px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.modetoggle button{flex:1;background:rgba(255,255,255,.12);color:#fff;border:0;padding:11px 14px;cursor:pointer;font-size:14px;font-weight:700;transition:.15s}
+.modetoggle button:hover{background:rgba(255,255,255,.22)}
+.modetoggle button.on{background:#fff;color:var(--accent-d)}
+body.trainer-mode .nowbar{display:none!important}
+.trguide{display:flex;gap:14px;align-items:center;margin-bottom:14px;font-size:13.5px}
+.trguide label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.tropt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:var(--r-sm);padding:11px 14px;margin-bottom:8px;cursor:pointer;font-size:14px;transition:.12s;color:var(--ink)}
+.tropt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.tropt:disabled{cursor:default}
+.tropt.ok{border-color:var(--green);background:var(--green-bg);font-weight:600}
+.tropt.no{border-color:var(--red);background:var(--red-bg)}
+.trcase{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:10px;cursor:pointer;box-shadow:var(--sh-sm);transition:.15s}
+.trcase:hover{border-color:var(--accent);box-shadow:var(--sh-accent)}
+.trcase b{font-size:15px;color:var(--accent-d)}
+.trcase span{font-size:12.5px;color:var(--muted)}
+.trprog{font-size:12px;color:var(--muted);margin-bottom:4px}
+/* modale scheda riassuntiva */
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:24px;overflow:auto}
+.modal.open{display:flex}
+.modal .sheet{background:#fff;border-radius:var(--r);max-width:780px;width:100%;padding:26px 30px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal .sheet h2{margin:0 0 4px;font-size:19px;color:var(--ink)}
+.modal .sheet .msub{color:var(--muted);font-size:12px;margin-bottom:14px}
+.modal .sheet h3{font-size:12px;margin:16px 0 6px}
+.sumgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;font-size:13px}
+.sumgrid div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line2);padding:3px 0}
+.sumgrid div span:first-child{color:var(--muted)}
+.sumgrid div span:last-child{font-weight:600}
+.sumacts{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.sumlog{font-size:12px}
+.sumlog .sl{padding:3px 0;border-bottom:1px solid var(--line2)}
+.sumlog .sl b{color:var(--accent-d)}
+@media print{.nextwrap{display:none!important}}
+@media print{.timercol,nav.steps,.timerpanel,header,.toolbar,.tabs,.btn,.nowbar{display:none!important}.card{page-break-inside:avoid;box-shadow:none}.hidden{display:block!important}.step{display:block!important}details.det[open] .dbody{display:block!important}}
+/* stampa solo scheda riassuntiva */
+body.sumprint header,body.sumprint .nowbar,body.sumprint .wrap{display:none!important}
+body.sumprint .modal{position:static;display:block;background:none;padding:0;overflow:visible}
+body.sumprint .modal .sheet{box-shadow:none;max-width:none}
+body.sumprint .sumacts{display:none!important}
+/* ottimizzazioni smartphone */
+@media(max-width:760px){
+  .wrap{padding:12px}
+  input[type=number],input[type=text],input[type=time],select,textarea{font-size:16px}
+  .hero .hbig{font-size:30px}
+  .btn,.tabs button,nav.steps button{min-height:40px}
+  header{padding:14px 0}
+  header .hwrap{padding:0 14px}
+  header h1{font-size:18px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <h1>Gestione della Chetoacidosi Diabetica (DKA) in età pediatrica</h1>
+    <div class="sub">Strumento operativo per il Pronto Soccorso · uso clinico di supporto, non sostituisce il giudizio del medico</div>
+    <div class="credit"><span class="ico" data-ico="user"></span> ideato e sviluppato da <b>Antonio Di Virgilio</b></div>
+    <div class="modetoggle">
+      <button id="modeClin" class="on" onclick="switchMode('clinica')"><span class="ico" data-ico="hospital"></span> Modalità clinica</button>
+      <button id="modeTrain" onclick="switchMode('trainer')"><span class="ico" data-ico="cap"></span> Modalità esercitazione</button>
+    </div>
+    <div class="guidesel">
+      <span>Linea guida di riferimento:</span>
+      <label><input type="radio" name="gl" value="opbg" checked onchange="setGuide('opbg')"> Protocollo OPBG (2015)</label>
+      <label><input type="radio" name="gl" value="siedp" onchange="setGuide('siedp')"> Linea guida SIEDP (2015)</label>
+    </div>
+    <div class="nowbar empty" id="nowbar"></div>
+  </div>
+</header>
+
+<div class="wrap" id="appClinica">
+  <div class="toolbar">
+    <button class="btn sm" onclick="openSummary()"><span class="ico" data-ico="file"></span> Scheda riassuntiva</button>
+    <button class="btn ghost sm" onclick="saveLocal()"><span class="ico" data-ico="save"></span> Salva su questo browser</button>
+    <button class="btn ghost sm" onclick="loadLocal()"><span class="ico" data-ico="reload"></span> Ricarica dati salvati</button>
+    <button class="btn red sm" onclick="resetAll()"><span class="ico" data-ico="trash"></span> Nuovo paziente</button>
+    <span id="saveState" style="font-size:12px;color:var(--muted)"></span>
+  </div>
+
+  <div class="layout">
+    <nav class="steps" id="nav"></nav>
+    <main id="main">
+
+    <!-- STEP 1: diagnosi + valutazione iniziale -->
+    <section class="card step" data-step="1">
+      <h2><span class="chip c1" data-ico="activity"></span>1. Diagnosi e valutazione iniziale in DEA <span class="badge">inizia qui</span></h2>
+      <p class="lead">Sospetta DKA in presenza di: poliuria, polidipsia, calo ponderale nonostante polifagia, enuresi recente, respiro di Kussmaul, astenia, vomito, dolore addominale. <b>Eseguire SUBITO stick glicemico capillare.</b></p>
+      <details class="det">
+        <summary>ℹ️ Criteri diagnostici di DKA</summary>
+        <div class="dbody">pH &lt; 7,30 · HCO₃⁻ &lt; 15 mmol/L · glicemia &gt; 200 mg/dL · chetonemia (β-idrossibutirrato &gt; 3 mmol/L) · glicosuria e chetonuria presenti.<br><span style="color:var(--muted)">Puoi compilare gli step in qualsiasi ordine: i calcoli funzionano con i soli dati che inserisci. Se la reidratazione è già iniziata, vai direttamente allo step pertinente.</span></div>
+      </details>
+
+      <div class="panel">
+        <div class="panel-t"><span class="pi" data-ico="user"></span> Dati del paziente</div>
+        <div class="grid g3">
+          <div><label>Peso (kg)</label><input type="number" id="peso" step="0.1" oninput="recalc()" placeholder="es. 20"></div>
+          <div><label>Età (anni)</label><input type="number" id="eta" step="0.5" oninput="recalc()" placeholder="per stima peso"></div>
+          <div><label>Altezza (cm)</label><input type="number" id="altezza" step="0.5" oninput="recalc()" placeholder="opz."></div>
+          <div><label>Stick glicemico (mg/dL)</label><input type="number" id="stick" oninput="checkInitialData()" placeholder="capillare"></div>
+          <div><label>GCS (Glasgow)</label><input type="number" id="gcs" min="3" max="15" oninput="checkInitialData()" placeholder="3-15"></div>
+          <div><label>Disidratazione stimata (%)</label>
+            <select id="dis" onchange="recalc()">
+              <option value="5">5% (lieve)</option>
+              <option value="7.5">7,5% (moderata)</option>
+              <option value="10" selected>10% (severa)</option>
+            </select>
+          </div>
+        </div>
+        <div id="pesoStima" class="alert warn" style="display:none"></div>
+        <small class="note">Se non è possibile pesare il paziente (es. coma): inserisci l'età → peso stimato = (Età + 4) × 2 (formula rapida APLS/EPLS). Il peso stimato viene usato automaticamente nei calcoli finché non inserisci quello reale.</small>
+      </div>
+
+      <h3>Cosa devi fare</h3>
+      <div id="azioniHint" class="alert info">Completa i dati del paziente qui sopra (peso o età, stick glicemico, GCS): comparirà la sequenza delle azioni da eseguire, spuntabili una a una.</div>
+      <ol id="azioniList" class="actions hidden">
+        <li><input type="checkbox" id="c_monitor" onchange="toggleAction(this)"><span class="atext">Monitoraggio dei parametri vitali e dello stato di coscienza (posizionare monitor a permanenza)</span></li>
+        <li><input type="checkbox" id="c_2vie" onchange="toggleAction(this)"><span class="atext">Posizionare 2 accessi venosi: uno per infondere con 2 vie, uno per i prelievi</span></li>
+        <li><input type="checkbox" id="c_prel" onchange="toggleAction(this)"><span class="atext">Eseguire prelievo: emogasanalisi, glicemia, azotemia, creatinina, emocromo, PCR, protidemia, elettroliti, chetonemia, esame urine</span></li>
+        <li><input type="checkbox" id="c_peso" onchange="toggleAction(this)"><span class="atext">Rilevare il peso del paziente appena possibile (se non possibile, usare la stima da età)</span></li>
+        <li><input type="checkbox" id="c_bil" onchange="toggleAction(this)"><span class="atext">Iniziare il bilancio idrico (la diuresi di regola non va compensata)</span></li>
+        <li><input type="checkbox" id="c_ecg" onchange="toggleAction(this)"><span class="atext">Eseguire ECG (secondo livello di gravità e/o sospetto di diselettrolitemie)</span></li>
+        <li><input type="checkbox" id="c_sf0" onchange="toggleAction(this)"><span class="atext">In attesa degli esami ematici, iniziare idratazione con soluzione fisiologica (dettagli e dosi nello step 3)</span></li>
+      </ol>
+    </section>
+
+    <!-- STEP 2: gravità + lab -->
+    <section class="card step hidden" data-step="2">
+      <h2><span class="chip c2" data-ico="flask"></span>2. Esami acido-base, gravità e calcolatori</h2>
+      <p class="lead">Appena disponibile l'EGA, inserisci i valori: gravità e correzioni vengono calcolate automaticamente.</p>
+      <div class="panel">
+        <div class="panel-t"><span class="pi" data-ico="clipboard"></span> Dati da inserire</div>
+        <div class="alert info" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:0">
+          <b><span class="ico" data-ico="clock"></span> Ora del 1° prelievo / prime analisi:</b>
+          <input type="time" id="oraT0" onchange="onT0Change()" style="width:auto">
+          <button class="btn ghost sm" onclick="setT0Now()">Adesso</button>
+          <span style="font-size:12.5px">È l'orario di riferimento da cui partono i timer di monitoraggio (glicemia +1h, elettroliti +2h, EGA +4h, emocromo +6h).</span>
+        </div>
+        <div class="grid g4">
+          <div><label>pH</label><input type="number" id="ph" step="0.01" oninput="recalc()" placeholder="es. 7.10"></div>
+          <div><label>HCO₃⁻ (mmol/L)</label><input type="number" id="hco3" step="0.1" oninput="recalc()" placeholder="es. 6"></div>
+          <div><label>Glicemia ematica (mg/dL)</label><input type="number" id="glic" oninput="recalc()" placeholder="es. 480"></div>
+          <div><label>Chetonemia β-OHB (mmol/L)</label><input type="number" id="cheto" step="0.1" placeholder="es. 5"></div>
+          <div><label>Na⁺ misurato (mEq/L)</label><input type="number" id="na" step="0.1" oninput="recalc()"></div>
+          <div><label>K⁺ misurato (mEq/L)</label><input type="number" id="k" step="0.1" oninput="recalc()"></div>
+          <div><label>Cl⁻ (mEq/L)</label><input type="number" id="cl" step="0.1" oninput="recalc()"></div>
+          <div><label>Azotemia BUN (mg/dL)</label><input type="number" id="bun" step="0.1" oninput="recalc()"></div>
+          <div><label>ECG</label>
+            <select id="ecg" onchange="recalc()">
+              <option value="">— non eseguito —</option>
+              <option value="normale">1. Normale</option>
+              <option value="anomalie">2. Anomalie ECG</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-t"><span class="pi" data-ico="chart"></span> Risultati calcolati</div>
+        <div id="sevBox" class="result" style="margin-top:0">Inserisci pH e HCO₃⁻ per classificare la gravità.</div>
+        <details class="det" id="gravDet"><summary>ℹ️ Gravità: dove trattare il paziente</summary><div class="dbody">
+          <b>DKA severa</b> (pH &lt; 7,1, iperventilazione, shock, coscienza depressa, vomito persistente): ricovero/trattamento in <b>terapia intensiva</b> fino a risoluzione. Tutti gli altri casi → reparto.<br>
+          Se il trasferimento avviene <b>dopo 2 ore</b> dall'inizio della fisiologica, iniziare l'insulina già in DEA.
+        </div></details>
+        <div class="kpi" style="margin-top:10px">
+          <div class="box"><div class="k">Na⁺ corretto</div><div class="v" id="naCorr">—</div></div>
+          <div class="box"><div class="k">K⁺ corretto</div><div class="v" id="kCorr">—</div></div>
+          <div class="box"><div class="k">Gap anionico</div><div class="v" id="ag">—</div></div>
+          <div class="box"><div class="k">Osmolarità</div><div class="v" id="osm">—</div></div>
+          <div class="box"><div class="k">Sup. corporea</div><div class="v" id="bsa">—</div></div>
+        </div>
+        <details class="det"><summary>ℹ️ Formule usate</summary><div class="dbody" style="font-size:12px;color:var(--muted)">Na⁺ corretto = Na + 2,75 × (glicemia−100)/100 · K⁺ corretto = K − 0,6 per ogni 0,1 di pH &lt; 7,2 · Gap anionico = Na − (Cl+HCO₃), normale 12±2; nella DKA 20-30 · Osmolarità: OPBG 2(Na+K) + glic/18 + azotemia/2,8 · SIEDP 2×Na + glic/18 (vn 280-295) · BSA = (4×peso+7)/(peso+90) oppure √(peso×altezza/3600).</div></details>
+        <div id="shockBox"></div>
+      </div>
+    </section>
+
+    <!-- STEP 3: prime 2 ore -->
+    <section class="card step hidden" data-step="3">
+      <h2><span class="chip c3" data-ico="droplet"></span>3. Prime 2 ore — Idratazione iniziale</h2>
+      <p class="lead">Obiettivo: correggere la disidratazione/shock. <b>Non iniziare l'insulina prima delle 2 ore</b> di idratazione iniziale.</p>
+      <div class="tabs">
+        <button class="on" onclick="setShock(false)" id="tabNoshock">Paziente NON in shock</button>
+        <button onclick="setShock(true)" id="tabShock">Paziente in SHOCK</button>
+      </div>
+      <div id="fluidCalc" class="hero"></div>
+
+      <h3>Potassio nelle prime 2 ore</h3>
+      <div id="k2hBox" class="result">Inserisci K⁺ e pH (step 2) — oppure l'ECG — per sapere se aggiungere potassio già ora.</div>
+
+      <div class="panel">
+        <div class="panel-t"><span class="pi" data-ico="check"></span> Da fare</div>
+        <div class="chk"><input type="checkbox" id="c_sf"><label for="c_sf" style="margin:0;font-weight:400;color:var(--ink)">Soluzione fisiologica avviata (avviare il timer qui sotto)</label></div>
+        <div class="chk"><input type="checkbox" id="c_abx"><label for="c_abx" style="margin:0;font-weight:400;color:var(--ink)">Se PCR elevata → iniziare terapia antibiotica</label></div>
+        <div class="chk"><input type="checkbox" id="c_diuresi"><label for="c_diuresi" style="margin:0;font-weight:400;color:var(--ink)">Sorvegliare la diuresi</label></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-t"><span class="pi" data-ico="clock"></span> Timer idratazione iniziale</div>
+        <div class="timer" id="tm_sf2h">
+          <div class="tl"><div class="tname" id="sf2hName">Fine prime 2 ore di fisiologica</div>
+          <div class="tfreq">avviare all'inizio della soluzione fisiologica · al termine si può iniziare l'insulina (step 4.1) · inizio: <span id="next_sf2h">—</span></div></div>
+          <div class="tcount" id="cnt_sf2h">2:00:00</div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <button class="btn sm" onclick="startSF2h()">Avvia</button>
+            <button class="btn ghost sm" onclick="stopSF2h()">Ferma</button>
+          </div>
+        </div>
+        <h3 style="margin-top:16px">Volume infuso e velocità successiva</h3>
+        <div class="grid" style="margin-top:4px">
+          <div><label>Volume realmente infuso nelle prime 2 ore (mL)</label><input type="number" id="vol2h" oninput="recalc()" placeholder="serve per lo step 4.2"></div>
+        </div>
+        <div id="vol2hSugg" class="result" style="margin-top:8px"></div>
+        <small class="note">L'eventuale terapia antishock NON va conteggiata nel volume delle 24 ore.</small>
+      </div>
+    </section>
+
+    <!-- STEP 4: insulina -->
+    <section class="card step hidden" data-step="4">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)">4. Dalla 3ª alla 24ª ora</div>
+      <h2><span class="chip c4" data-ico="syringe"></span>4.1 Insulina (1ª via infusionale)</h2>
+      <p class="lead">Insulina regolare (Humulin R / Actrapid / Insuman R) in <b>pompa-siringa</b>. Mai boli EV. L'obiettivo non è correggere l'iperglicemia ma ristabilire l'equilibrio metabolico.</p>
+      <div id="insBox" class="hero ins"></div>
+      <details class="det"><summary>ℹ️ Come preparare l'insulina</summary><div class="dbody" id="insPrepNote"></div></details>
+      <div class="panel">
+        <div class="panel-t"><span class="pi" data-ico="droplet"></span> Aggiustamento velocità in base alla glicemia oraria</div>
+        <div class="grid g3">
+          <div><label>Glicemia all'inizio della somministrazione di insulina (mg/dL)</label><input type="number" id="glicPrev" oninput="insAdjust()"></div>
+          <div><label>Glicemia al primo controllo (1h) (mg/dL)</label><input type="number" id="glicNow" oninput="insAdjust()"></div>
+          <div><label>Velocità insulina attuale (mL/h)</label><input type="number" id="insRate" step="0.5" oninput="insAdjust()"></div>
+        </div>
+        <div id="insAdjBox" class="result" style="margin-top:10px">Inserisci i valori per il suggerimento.</div>
+        <small class="note" id="insAdjNote"></small>
+        <details class="det" id="cmpDetails" ontoggle="onCmpToggle(this)" style="margin-top:12px">
+          <summary>Comparazione glicemie successive</summary>
+          <div class="dbody">
+            <div id="cmpRows"></div>
+            <button class="btn ghost sm" style="margin-top:10px" onclick="addCmpRow()">+ Aggiungi controllo successivo</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- STEP 5: 2a via idratazione/elettroliti -->
+    <section class="card step hidden" data-step="5">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)">4. Dalla 3ª alla 24ª ora</div>
+      <h2><span class="chip c3" data-ico="droplet"></span>4.2 Idratazione ed elettroliti (2ª via infusionale)</h2>
+      <p class="lead">In pompa. La scelta della soluzione dipende dalla glicemia; il potassio dal K⁺ corretto.</p>
+      <label style="margin-bottom:6px">Seleziona la glicemia attuale del paziente:</label>
+      <div class="tabs">
+        <button id="gTabHi" class="on" onclick="setGlucState('hi')">Glicemia &gt; 300 mg/dL</button>
+        <button id="gTabLo" onclick="setGlucState('lo')">Glicemia ≤ 300 mg/dL</button>
+      </div>
+      <div id="fluid24" class="hero"></div>
+      <div id="solBox" class="result"></div>
+      <div id="kBox" class="result" style="margin-top:10px"></div>
+      <details class="det"><summary>ℹ️ Limiti potassio e gestione del sodio</summary><div class="dbody">
+        <b>Potassio:</b> non superare 40 mEq/L (salvo casi particolari) né 0,5 mEq/kg/h. Metà KCl e metà K-fosfato; il K-fosfato può dare ipocalcemia (in tal caso sostituire con K-acetato/lattato, non con altro KCl). Mai più di 3 L/m²/24h di liquidi totali.<br>
+        <b>Sodio:</b> sodiemia fittiziamente bassa; durante il calo glicemico il Na deve <b>aumentare</b> (≈1,5 mEq ogni 90 mg/dL di riduzione) per evitare cadute brusche dell'osmolarità.
+      </div></details>
+    </section>
+
+    <!-- STEP 6: bicarbonati / casi particolari -->
+    <section class="card step hidden" data-step="6">
+      <h2><span class="chip c5" data-ico="tube"></span>5. Bicarbonati e casi particolari</h2>
+      <div id="bicIntro" class="alert danger"></div>
+      <div id="bicBox" class="result"></div>
+      <details class="det"><summary>ℹ️ Dettagli somministrazione ed esordio lieve</summary><div class="dbody">
+        <ul id="bicList" style="font-size:13.5px;color:var(--ink);margin:4px 0"></ul>
+        <div id="bicEsordio">
+          <h3 style="margin-top:8px">Esordio lieve (pH &gt; 7,30)</h3>
+          <div class="alert info" style="margin:0">Se esordio con pH &gt; 7,30, disidratazione modesta, no diselettrolitemie, no vomito: dopo le prime 2 ore di fisiologica iniziare direttamente <b>insulina sottocute</b> con monitoraggio glicemico standard. Far assumere K per os per 24-36 h.</div>
+        </div>
+      </div></details>
+    </section>
+
+    <!-- STEP 8: sospensione -->
+    <section class="card step hidden" data-step="8">
+      <h2><span class="chip c6" data-ico="pills"></span>6. Sospensione infusione e passaggio a sottocute</h2>
+      <p class="lead">Criteri per sospendere l'insulina EV — controlla quando soddisfatti:</p>
+      <div id="stopCriteria"></div>
+      <div id="stopBox" class="result" style="margin-top:8px"></div>
+      <h3>Schema insulina sottocute</h3>
+      <div id="scBox" class="result"></div>
+      <div id="scScheme"></div>
+    </section>
+
+    <!-- STEP 9: edema cerebrale -->
+    <section class="card step hidden" data-step="9">
+      <h2><span class="chip c7" data-ico="brain"></span>Complicanza: edema cerebrale</h2>
+      <div class="alert danger"><b>Iniziare la terapia subito, senza attendere gli esami diagnostici.</b></div>
+      <details class="det"><summary>ℹ️ Criteri diagnostici di edema cerebrale</summary><div class="dbody">
+        <p style="font-size:13.5px;margin:4px 0"><b>Diagnosi con 1 dei seguenti:</b> risposta verbale/motoria anomala al dolore · postura da decorticazione/decerebrazione · paralisi nervi cranici (III, IV, VI) · pattern respiratori neurogenici (tachipnea, Cheyne-Stokes).</p>
+        <p style="font-size:13.5px;margin:4px 0"><b>Oppure 1 criterio maggiore + 2 minori.</b></p>
+        <div class="grid g2">
+          <div><b style="font-size:13px">Maggiori</b><ul style="font-size:13px;margin:4px 0"><li>Fluttuazione dello stato di coscienza</li><li>Riduzione progressiva della frequenza cardiaca</li><li>Incontinenza degli sfinteri</li></ul></div>
+          <div><b style="font-size:13px">Minori</b><ul style="font-size:13px;margin:4px 0"><li>Vomito</li><li>Cefalea</li><li>Sonnolenza</li><li>Aumento della pressione diastolica</li></ul></div>
+        </div>
+      </div></details>
+      <h3>Terapia</h3>
+      <div id="mannitolBox" class="result"></div>
+      <ul id="edemaList" style="font-size:13.5px"></ul>
+    </section>
+
+    </main>
+    <div class="timercol">
+      <div class="moninfo">
+        <div class="mi-title"><span class="ico" data-ico="chart"></span> Monitoraggio e timer</div>
+        <p>Monitoraggio nelle prime 12-24 ore o fino a risoluzione. I timer qui sotto si avviano dall'<b>ora del 1° prelievo</b> (step 2) e ti avvisano (suono + lampeggio) quando è ora del controllo successivo. Registra i valori con "＋ registra".</p>
+        <div class="mi-tab">
+          <div><span>ogni ora</span> glicemia, parametri vitali, GCS (casi severi)</div>
+          <div><span>ogni 2 ore</span> elettroliti, chetonemia</div>
+          <div><span>ogni 4 ore</span> EGA</div>
+          <div><span>ogni 6 ore</span> emocromo, azotemia</div>
+        </div>
+        <div class="mi-sched">Prossimi controlli</div>
+        <div id="schedulePreview" class="result" style="margin-top:0">Imposta l'ora del 1° prelievo (step 2) per vedere gli orari dei controlli.</div>
+      </div>
+      <div class="timerpanel" id="timerPanel">
+        <div class="tp-head"><span style="display:inline-flex;align-items:center;gap:6px"><span class="ico" data-ico="clock"></span> Timer di monitoraggio</span>
+          <label class="snd"><input type="checkbox" id="soundOn" checked> suono</label>
+        </div>
+        <div class="tp-ref">Riferimento: <b id="t0disp">—</b><br><span style="font-size:11px;color:var(--muted)">imposta l'ora del 1° prelievo nello step 2</span></div>
+        <div style="display:flex;gap:5px;margin:6px 0">
+          <button class="btn sm" style="flex:1" onclick="startAllTimers()"><span class="ico" data-ico="play"></span> Avvia</button>
+          <button class="btn ghost sm" onclick="stopAllTimers()"><span class="ico" data-ico="pause"></span></button>
+        </div>
+        <div id="timers"></div>
+      </div>
+    </div>
+  </div>
+  <div class="madeby">Ideato e sviluppato da <b>Antonio Di Virgilio</b></div>
+  <div class="footnote">Fonti selezionabili in alto: (1) Protocollo "Chetoacidosi diabetica in età pediatrica", Ospedale Pediatrico Bambino Gesù (OPBG), 8 settembre 2015; (2) "Raccomandazioni per la gestione della chetoacidosi diabetica in età pediatrica", Gruppo di Studio di Diabetologia Pediatrica S.I.E.D.P., Acta Biomedica 2015; Vol. 86, Quad. 1: 5-26 (condivise SIMEUP). Rif. anche Wolfsdorf JI et al., Pediatr Diabetes 2014. Strumento di supporto: verificare sempre dosi e decisioni cliniche.</div>
+</div>
+
+<div class="wrap" id="appTrainer" style="display:none">
+  <div class="alert danger" style="font-weight:600"><span class="ico" data-ico="cap"></span> MODALITÀ ESERCITAZIONE — paziente simulato a scopo didattico, <b>non per uso clinico</b>. La linea guida si seleziona dall'intestazione.</div>
+  <div class="card"><div id="trHome"></div><div id="trCase" style="display:none"></div></div>
+</div>
+
+<div class="modal" id="summaryModal" onclick="if(event.target===this)closeSummary()">
+  <div class="sheet" id="summarySheet"></div>
+</div>
+
+<script>
+// ---------- Tabella 1 OPBG: volume mL/24h [fabbisogno, +5%, +10%] ----------
+const TAB = {
+4:[325,425,525],5:[405,530,655],6:[485,635,785],7:[570,745,920],8:[640,840,1040],
+9:[710,935,1160],10:[780,1030,1280],11:[840,1065,1390],12:[890,1190,1490],13:[940,1265,1590],
+14:[990,1340,1690],15:[1030,1405,1780],16:[1070,1470,1870],17:[1120,1545,1970],18:[1150,1600,2050],
+19:[1190,1665,2140],20:[1230,1730,2230],22:[1300,1850,2400],24:[1360,1960,2560],26:[1430,2080,2730],
+28:[1490,2190,2890],30:[1560,2310,3060],32:[1620,2420,3220]};
+const TAB_KEYS = Object.keys(TAB).map(Number).sort((a,b)=>a-b);
+
+function bsaFromWeight(p){ return (4*p+7)/(p+90); }
+function bsaMosteller(p,h){ return Math.sqrt(p*h/3600); }
+
+// le 3 colonne della Tabella 1 corrispondono a perdite 0% / 5% / 10%
+function rowFor(p){
+  if(TAB[p]) return {row:TAB[p], src:'Tabella 1'};
+  let lo=TAB_KEYS[0], hi=TAB_KEYS[TAB_KEYS.length-1];
+  for(let i=0;i<TAB_KEYS.length-1;i++){ if(p>=TAB_KEYS[i]&&p<=TAB_KEYS[i+1]){lo=TAB_KEYS[i];hi=TAB_KEYS[i+1];break;} }
+  const r=[0,1,2].map(c=> TAB[lo][c] + (TAB[hi][c]-TAB[lo][c])*(p-lo)/(hi-lo));
+  return {row:r, src:'interpolato tra '+lo+' e '+hi+' kg'};
+}
+// interpola sul grado di disidratazione (colonne 0%,5%,10%)
+function interpDis(row,d){
+  if(d<=0) return row[0];
+  if(d<=5) return row[0]+(row[1]-row[0])*d/5;
+  if(d<=10) return row[1]+(row[2]-row[1])*(d-5)/5;
+  return row[2];
+}
+function volume24(p,disPct){
+  if(p>32){
+    const m2 = bsaFromWeight(p);
+    return {ml: Math.round(2.5*1000*m2), src:'2,5 L/m² (peso >32 kg), m²='+m2.toFixed(2)};
+  }
+  const r=rowFor(p);
+  return {ml:Math.round(interpDis(r.row,disPct)), src:r.src+', disidr. '+disPct+'%'};
+}
+
+const $=id=>document.getElementById(id);
+// ---- set di icone SVG coerenti (Lucide-style) ----
+const _S='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
+const ICO={
+ activity:_S+'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+ flask:_S+'<path d="M10 2v7.31"/><path d="M14 9.3V2"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>',
+ droplet:_S+'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
+ syringe:_S+'<path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg>',
+ tube:_S+'<path d="M14.5 2v17.5a3.5 3.5 0 0 1-7 0V2"/><path d="M8 2h8"/><path d="M14 16H7"/></svg>',
+ check:_S+'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>',
+ alert:_S+'<path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+ clock:_S+'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+ user:_S+'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+ clipboard:_S+'<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>',
+ chart:_S+'<line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>',
+ pills:_S+'<circle cx="8" cy="8" r="6"/><path d="M18.09 14.37A6 6 0 1 1 10.34 6.27"/><path d="m5.7 5.7 6.6 6.6"/></svg>',
+ brain:_S+'<path d="M12 5a3 3 0 1 0-5.99.14"/><path d="M12 5a3 3 0 1 1 5.99.14"/><path d="M6 8a3 3 0 0 0-1 5.83"/><path d="M18 8a3 3 0 0 1 1 5.83"/><path d="M6.5 13.5A3 3 0 0 0 9 19a3 3 0 0 0 6 0 3 3 0 0 0 2.5-5.5"/><path d="M12 5v14"/></svg>',
+ play:_S+'<polygon points="6 3 20 12 6 21 6 3"/></svg>',
+ pause:_S+'<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>',
+ plus:_S+'<path d="M5 12h14"/><path d="M12 5v14"/></svg>',
+ printer:_S+'<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>',
+ save:_S+'<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>',
+ reload:_S+'<path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg>',
+ trash:_S+'<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+ file:_S+'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+ cap:_S+'<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.5 2 6 2s6-1 6-2v-5"/></svg>',
+ hospital:_S+'<path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M10 9h4"/><path d="M12 7v4"/></svg>'
+};
+function fillIcons(root){ (root||document).querySelectorAll('[data-ico]').forEach(e=>{ e.innerHTML=ICO[e.getAttribute('data-ico')]||''; }); }
+let glucState='hi', shockState=false;
+let GL='opbg'; // 'opbg' = protocollo OPBG · 'siedp' = linea guida SIEDP
+function setGuide(v){ GL=v;
+  document.querySelector('input[name=gl][value='+v+']').checked=true;
+  // etichette tab glucosata 2ª via
+  $('gTabHi').textContent = v==='siedp'?'Glicemia > 250-300 mg/dL':'Glicemia > 300 mg/dL';
+  $('gTabLo').textContent = v==='siedp'?'Glicemia ≤ 250-300 mg/dL':'Glicemia ≤ 300 mg/dL';
+  // didascalia timer idratazione iniziale
+  const tn=$('sf2hName'); if(tn) tn.textContent = v==='siedp'?'Fine idratazione iniziale (90-120 min)':'Fine prime 2 ore di fisiologica';
+  // nota preparazione insulina
+  const ip=$('insPrepNote'); if(ip) ip.innerHTML = v==='siedp'
+    ? '<b>Preparazione (SIEDP):</b> 50 U di insulina regolare in 49,5 mL di fisiologica 0,9% = <b>1 U/mL</b>. La velocità in mL/h coincide con le U/h da infondere. Far defluire 20 mL per saturare il set. Mai boli, solo pompa-siringa.'
+    : '<b>Preparazione (OPBG):</b> fabbisogno orario (U/kg/h) × peso × 24 = unità totali da aggiungere a <b>100 mL</b> di fisiologica 0,9%. Poiché 100 mL ÷ 24 h = <b>4 mL/h</b>, questa velocità infonde le U/kg/h desiderate. Ogni variazione di 1 mL/h cambia di ¼ le U/kg/h. Far defluire 20 mL per saturare il deflussore; dosare solo con siringhe da insulina.';
+  // nota titolazione
+  const an=$('insAdjNote'); if(an) an.innerHTML = v==='siedp'
+    ? 'SIEDP: la glicemia non deve scendere &gt;90-100 mg/dL/h. A 250-300 non ridurre l\'insulina ma aggiungere glucosata 5-10% (tonicità ≥0,45%); ridurre a 0,03-0,025 U/kg/h solo se la glicemia continua a calare.'
+    : 'OPBG: la glicemia non deve scendere &gt;90-100 mg/dL/h. ≥250 in 2 controlli → +25% (1 mL/h). 150-250 → invariata. &lt;150 o calo rapido → dimezzare; se non basta glucosata 5%→10%.';
+  // bicarbonati
+  const bi=$('bicIntro'); if(bi) bi.innerHTML = v==='siedp'
+    ? '<b>SIEDP: non usare i bicarbonati.</b> Nessuna evidenza di utilità nella DKA pediatrica; aumentano il rischio di edema cerebrale, acidosi liquorale paradossa e ipokaliemia.'
+    : '<b>Bicarbonati NON raccomandati di routine.</b> Solo se acidosi grave: pH ≤ 6,85 e HCO₃⁻ &lt; 5 mEq/L, con depressione miocardica/difficoltà di circolo (in accordo con diabetologo e rianimatore → presuppone terapia intensiva).';
+  const bl=$('bicList'); if(bl) bl.innerHTML = v==='siedp'
+    ? '<li>Qualora strettamente necessario: 1-2 mEq/kg in 60-120 min, <b>mai in bolo</b>.</li>'
+    : '<li>Dose: 1-2 mEq/kg diluiti in SF, infusi in 2 ore (mai EV diretto).</li>'+
+      '<li>Aggiungere 0,25 mEq di K per ogni mEq di bicarbonato.</li>'+
+      '<li>Sospendere appena il pH raggiunge 7,1.</li>';
+  const be=$('bicEsordio'); if(be) be.style.display = v==='siedp'?'none':'block';
+  // edema cerebrale: lista terapia
+  const el=$('edemaList'); if(el) el.innerHTML = v==='siedp'
+    ? '<li>Mannitolo 0,5-1 g/kg EV in 10-15 min, ripetibile in caso di mancata risposta.</li>'+
+      '<li>Alternativa: salina ipertonica 3% 2,5-5 mL/kg in 10-15 min.</li>'+
+      '<li>Ridurre di ⅓ la quantità di liquidi in corso.</li>'+
+      '<li>Sollevare la testa dal letto; intubazione se rischio di insufficienza respiratoria (evitare iperventilazione aggressiva, pCO₂ &lt;22 mmHg).</li>'+
+      '<li>TAC encefalo per escludere altre cause (trombosi/emorragie). Trasferire in terapia intensiva.</li>'
+    : '<li>Mannitolo 1 g/kg EV in 30 min (5 mL/kg di soluzione al 20%), ripetibile.</li>'+
+      '<li>Dimezzare la velocità di infusione dei liquidi in atto.</li>'+
+      '<li>Sollevare la testa dal piano del letto.</li>'+
+      '<li>Eseguire fondo oculare; appena possibile TAC urgente (escludere eventi vascolari).</li>'+
+      '<li>Trasferire in terapia intensiva.</li>';
+  renderStopSection(); recalc(); insAdjust(); autosaveSoft();
+  // il selettore dell'header guida anche la Modalità Esercitazione (continuità)
+  try{ TR_GL=v; if(document.body.classList.contains('trainer-mode') && trBuilt) trRenderHome(); }catch(e){}
+}
+function num(id){ const v=parseFloat($(id).value); return isNaN(v)?null:v; }
+// K corretto: sottrarre 0,6 per ogni 0,1 di pH sotto 7,2 (nessuna correzione se pH ≥ 7,2)
+function kCorrect(k,ph){ if(k==null) return null; if(ph!=null && ph<7.2) return k - 0.6*((7.2-ph)/0.1); return k; }
+function toNum(s){ if(s==null) return null; const v=parseFloat(String(s).replace(',','.')); return isNaN(v)?null:v; }
+// K⁺ più recente registrato nel monitoraggio (2ª via si basa su questo, non sul K iniziale)
+let lastK={k:null,kc:null,t:null};
+let computedInsRate=null; // velocità insulina calcolata (mL/h) per pre-compilare l'aggiustamento
+// pH più recente disponibile: ultimo EGA registrato, altrimenti pH iniziale (step 2)
+function latestPh(){
+  const eg=timers['ega']&&timers['ega'].log;
+  if(eg) for(const e of eg){ if(e.vals) for(const x of e.vals){ if(x.l==='pH'){ const v=toNum(x.v); if(v!=null) return v; } } }
+  return num('ph');
+}
+// ricava lastK dall'ultima misura con K⁺ registrata nel monitoraggio (Elettroliti o EGA)
+function refreshLastK(){
+  let best=null;
+  ['elet','ega'].forEach(id=>{
+    const log=timers[id]&&timers[id].log; if(!log) return;
+    for(const e of log){ if(!e.vals) continue;
+      let kv=null,kcv=null;
+      for(const x of e.vals){ if(x.l==='K⁺') kv=toNum(x.v); if(x.l==='K⁺ corretto') kcv=toNum(x.v); }
+      if(kv!=null){ const cand={k:kv,kc:(kcv!=null?kcv:kv),t:e.t||''}; if(!best||cand.t>best.t) best=cand; break; }
+    }
+  });
+  lastK = best || {k:null,kc:null,t:null};
+}
+
+function effPeso(){
+  const pr=num('peso'); if(pr!==null) return {p:pr,stimato:false};
+  const e=num('eta'); if(e!==null) return {p:(e+4)*2,stimato:true};
+  return {p:null,stimato:false};
+}
+function recalc(){
+  const ep=effPeso(), p=ep.p, ph=num('ph'), hco3=num('hco3'), glic=num('glic'),
+        na=num('na'), k=num('k'), cl=num('cl'), bun=num('bun'),
+        dis=parseFloat($('dis').value), h=num('altezza'), vol2=num('vol2h');
+
+  // --- stima peso da età ---
+  const ps=$('pesoStima');
+  if(ep.stimato){ ps.style.display='block'; ps.innerHTML='Peso non inserito → <b>peso stimato = '+p+' kg</b> da età '+num('eta')+' anni · (Età + 4) × 2 (APLS/EPLS). Sostituire con il peso reale appena disponibile.';
+    $('peso').placeholder='stima da età: '+p+' kg'; }
+  else { ps.style.display='none'; $('peso').placeholder='es. 20'; }
+  checkInitialData();
+
+  // --- gravità ---
+  let sev='', cls='';
+  if(ph!==null&&hco3!==null){
+    if(ph<7.1||hco3<5){sev='SEVERA';cls='sev';}
+    else if(ph<7.2||hco3<10){sev=GL==='siedp'?'MODERATA':'MEDIA';cls='med';}
+    else if(ph<7.3||hco3<15){sev=GL==='siedp'?'LIEVE':'MODERATA';cls='mod';}
+    else {sev='Fuori criterio DKA (pH≥7,3 e HCO₃≥15)';cls='mod';}
+    $('sevBox').innerHTML = 'Gravità: <span class="sev '+cls+'">'+sev+'</span>'+
+      (sev==='SEVERA'?' &nbsp;→ valutare terapia intensiva':'');
+  }
+  { const gd=$('gravDet'); if(gd){ gd.classList.toggle('danger',sev==='SEVERA'); if(sev==='SEVERA') gd.open=true; } }
+  // --- correzioni ---
+  let naC=null,kC=null;
+  if(na!==null&&glic!==null){ naC = na + 2.75*(glic-100)/100; $('naCorr').textContent=naC.toFixed(1)+' mEq/L'; }
+  if(k!==null&&ph!==null){ kC = kCorrect(k,ph); $('kCorr').textContent=kC.toFixed(1)+' mEq/L'+(kC<2.5?' ⚠️':''); }
+  else if(k!==null){ $('kCorr').textContent=k.toFixed(1)+' (no pH)'; }
+  if(na!==null&&cl!==null&&hco3!==null){ const ag=na-(cl+hco3); $('ag').textContent=ag.toFixed(0); }
+  // osmolarità: OPBG 2(Na+K)+glic/18+azotemia/2,8 · SIEDP 2×Na+glic/18
+  if(GL==='siedp'){ if(na!==null&&glic!==null){ const o=2*na+glic/18; $('osm').textContent=o.toFixed(0)+' mOsm'; } }
+  else { if(na!==null&&k!==null&&glic!==null&&bun!==null){ const o=2*(na+k)+glic/18+bun/2.8; $('osm').textContent=o.toFixed(0)+' mOsm'; } }
+  if(p){ const b1=bsaFromWeight(p); const txt=h?bsaMosteller(p,h).toFixed(2)+' m²':b1.toFixed(2)+' m²'; $('bsa').textContent=txt; }
+
+  // alert potassio in sintesi (logica diversa per linea guida)
+  const ecgAnom = $('ecg').value==='anomalie';
+  const hyperK = (k!==null && k>5.5);
+  if(GL==='siedp'){
+    let html;
+    if(hyperK){ html='<div class="alert warn" style="margin-top:10px">K⁺ elevato → posticipare l\'infusione di potassio finché non è documentata una diuresi efficace.</div>'; }
+    else if(kC!==null && kC<3){ html='<div class="alert danger" style="margin-top:10px">⚠️ <b>ATTENZIONE</b><br>Ipokaliemia → iniziare il potassio fin dall\'inizio della reidratazione, <b>40 mEq/L</b> + monitor ECG.<br>Per la preparazione del potassio vedi lo step 3 "Prime 2 ore".</div>'; }
+    else { html='<div class="alert ok" style="margin-top:10px">SIEDP: integrare K fin dall\'inizio dell\'idratazione (<b>20 mEq/L</b> se K normale, 40 se ipoK), salvo iperK → attendere diuresi.</div>'; }
+    $('shockBox').innerHTML=html;
+  } else if(kC!==null || ecgAnom){
+    let html;
+    if((kC!==null && kC<2.5) || ecgAnom){
+      const motivo = (kC!==null&&kC<2.5 && ecgAnom)?'K⁺ corretto &lt; 2,5 + anomalie ECG'
+        : (kC!==null&&kC<2.5)?'K⁺ corretto &lt; 2,5' : 'anomalie ECG';
+      html='<div class="alert danger" style="margin-top:10px">⚠️ <b>ATTENZIONE</b><br>'+motivo+' → aggiungere il potassio già nelle prime 2 ore (sempre 20 mEq/L) + monitor ECG.<br>Per la preparazione del potassio vedi lo step 3 "Prime 2 ore".</div>';
+    } else {
+      html='<div class="alert ok" style="margin-top:10px">K⁺ corretto ≥ 2,5 ed ECG senza anomalie → nelle prime 2 ore K solo se compaiono anomalie ECG. Nella 2ª via 20 mEq/L.</div>';
+    }
+    $('shockBox').innerHTML=html;
+  }
+
+  // --- prime 2 ore idratazione (riquadro principale in evidenza) ---
+  // OPBG: non-shock 5-7 mL/kg/h per 2 ore · SIEDP: 5-10 mL/kg/h per 90-120 min · entrambi max 300 mL/h
+  const hiRate = GL==='siedp'?10:7;
+  const durTxt = GL==='siedp'?'90-120 min':'2 ore';
+  let f='';
+  if(p){
+    if(shockState){
+      const lo=p*10, hi=p*20, mx=p*30;
+      if(GL==='siedp'){
+        f='<div class="htag">'+ICO.droplet+'Paziente in SHOCK — somministra</div>'+
+          '<div class="hbig">'+lo+'–'+hi+' <small>mL</small></div>'+
+          '<div class="hsub"><b>Somministra un bolo di soluzione fisiologica 0,9% di '+lo+'–'+hi+' mL</b> (10-20 mL/kg), ripetibile per brevi periodi. Usa cristalloidi, non colloidi.</div>'+
+          '<div class="hmax">cristalloidi · no colloidi</div>';
+      } else {
+        f='<div class="htag">'+ICO.droplet+'Paziente in SHOCK — somministra</div>'+
+          '<div class="hbig">'+lo+'–'+hi+' <small>mL</small></div>'+
+          '<div class="hsub"><b>Somministra un bolo di soluzione fisiologica 0,9% di '+lo+'–'+hi+' mL</b> (10-20 mL/kg) in 1-2 ore, ripetibile.</div>'+
+          '<div class="hmax">⚠️ non superare 30 mL/kg = '+mx+' mL</div>';
+      }
+    } else {
+      const v5=Math.min(p*5,300), vH=Math.min(p*hiRate,300), cap=(p*hiRate>300);
+      f='<div class="htag">'+ICO.droplet+'Idratazione iniziale — somministra</div>'+
+        '<div class="hbig">'+v5.toFixed(0)+'–'+vH.toFixed(0)+' <small>mL/h</small></div>'+
+        '<div class="hsub"><b>Somministra soluzione fisiologica 0,9% a '+v5.toFixed(0)+'–'+vH.toFixed(0)+' mL/h per '+durTxt+'</b> (5-'+hiRate+' mL/kg/h)'+(cap?', limite massimo 300 mL/h':'')+'.</div>'+
+        '<div class="hmax">totale prime 2 ore ≈ '+(v5*2).toFixed(0)+'–'+(vH*2).toFixed(0)+' mL · max 300 mL/h</div>';
+    }
+  } else f='<div class="htag">'+ICO.droplet+'Soluzione fisiologica 0,9%</div><div class="hsub" style="font-size:15px">Inserisci il peso o l\'età (step 1) per calcolare la dose da somministrare.</div>';
+  $('fluidCalc').innerHTML=f;
+
+  // --- potassio nelle prime 2 ore ---
+  const maxhTxt = p? ' · non superare 0,5 mEq/kg/h = <b>'+(0.5*p).toFixed(1)+' mEq/h</b>' : '';
+  const kBox2=$('k2hBox'); kBox2.style.marginTop='0';
+  const kHero=(doseLbl,sub)=>{ kBox2.className='hero k';
+    kBox2.innerHTML='<div class="htag">'+ICO.tube+'Potassio — aggiungi alla fisiologica</div>'+
+      '<div class="hbig">'+doseLbl+'</div>'+
+      '<div class="hsub">'+sub+'</div>'+
+      (p?'<div class="hmax">metà KCl + metà K-fosfato · max 0,5 mEq/kg/h = '+(0.5*p).toFixed(1)+' mEq/h</div>':'<div class="hmax">metà KCl + metà K-fosfato · max 0,5 mEq/kg/h</div>'); };
+  if(GL==='siedp'){
+    if(hyperK){
+      kBox2.className='hero k';
+      kBox2.innerHTML='<div class="htag">'+ICO.tube+'Potassio — attendere</div><div class="hbig">posticipa <small>il K</small></div>'+
+        '<div class="hsub"><b>K⁺ elevato:</b> posticipare l\'infusione di potassio finché non è documentata una diuresi efficace.</div>';
+    } else if(kC!==null && kC<3){
+      kHero('40 <small>mEq/L</small>','<b>Aggiungi 40 mEq/L di potassio</b> alla soluzione fisiologica fin dall\'inizio della reidratazione (ipokaliemia). Monitora con ECG.');
+    } else {
+      kHero('20 <small>mEq/L</small>','<b>Aggiungi 20 mEq/L di potassio</b> fin dall\'inizio della reidratazione (40 mEq/L se ipokaliemia). Monitora con ECG.');
+    }
+  } else {
+    const needK = (kC!==null && kC<2.5) || ecgAnom;
+    if(needK){
+      const motivo = (kC!==null&&kC<2.5 && ecgAnom)?'K⁺ corretto &lt; 2,5 e anomalie ECG'
+        : (kC!==null&&kC<2.5)?'K⁺ corretto &lt; 2,5' : 'anomalie ECG';
+      kHero('20 <small>mEq/L</small>','<b>Aggiungi 20 mEq/L di potassio alla soluzione fisiologica</b> già ora ('+motivo+') = 10 mEq/L KCl + 10 mEq/L K-fosfato. Monitora con ECG.');
+    } else if(kC!==null){
+      kBox2.className='alert ok';
+      kBox2.innerHTML='K⁺ corretto ≥ 2,5 ed ECG senza anomalie → nelle prime 2 ore <b>non</b> aggiungere potassio (avviarlo nella 2ª via, step 4.2).';
+    } else {
+      kBox2.className='result';
+      kBox2.innerHTML='Inserisci K⁺ e pH (step 2) — oppure l\'ECG — per sapere se aggiungere potassio già ora.';
+    }
+  }
+
+  // --- suggerimento volume prime 2 ore (due opzioni) ---
+  if(p){
+    const ns5=Math.min(p*5,300)*2, nsH=Math.min(p*hiRate,300)*2;
+    const sh10=p*10, sh20=p*20;
+    $('vol2hSugg').innerHTML='<b>Suggerimento volume da inserire</b> (in base al peso '+p+' kg):'+
+      '<br>• NON shock (5-'+hiRate+' mL/kg/h × '+durTxt+'): <span class="out">'+ns5.toFixed(0)+'–'+nsH.toFixed(0)+' mL</span> '+
+      '<button class="btn ghost sm" onclick="setVol2('+ns5.toFixed(0)+')">usa '+ns5.toFixed(0)+'</button> '+
+      '<button class="btn ghost sm" onclick="setVol2('+nsH.toFixed(0)+')">usa '+nsH.toFixed(0)+'</button>'+
+      '<br>• SHOCK (10-20 mL/kg): <span class="out">'+sh10.toFixed(0)+'–'+sh20.toFixed(0)+' mL</span> '+
+      '<button class="btn ghost sm" onclick="setVol2('+sh10.toFixed(0)+')">usa '+sh10.toFixed(0)+'</button> '+
+      '<button class="btn ghost sm" onclick="setVol2('+sh20.toFixed(0)+')">usa '+sh20.toFixed(0)+'</button>'+
+      '<br><small>Valori indicativi: inserisci comunque il volume realmente infuso. Antishock escluso dal conteggio 24h.</small>';
+  } else {
+    $('vol2hSugg').innerHTML='Inserisci peso o età (step 1) per il suggerimento dei volumi.';
+  }
+
+  // --- volume 24h + velocità 2a via (riquadro in evidenza) ---
+  const solName = (glucState==='hi')
+    ? 'soluzione fisiologica 0,9% + potassio'
+    : (GL==='siedp' ? 'glucosata 5-10% (tonicità ≥0,45%) + potassio' : 'glucosata 5% + NaCl 50 mEq/L + potassio');
+  if(p){
+    const v=volume24(p,dis);
+    const rate = vol2!==null ? (v.ml - vol2)/22 : null;
+    const m2=bsaFromWeight(p);
+    const maxL = GL==='siedp'?'2,5-3 L/m²/24h ≈ '+Math.round(2500*m2)+'–'+Math.round(3000*m2):'3 L/m²/24h ≈ '+Math.round(3000*m2);
+    let f24;
+    if(rate!==null){
+      f24='<div class="htag">'+ICO.droplet+'Idratazione 3ª-24ª ora — somministra</div>'+
+        '<div class="hbig">'+rate.toFixed(0)+' <small>mL/h</small></div>'+
+        '<div class="hsub"><b>Somministra '+solName+' a '+rate.toFixed(0)+' mL/h.</b> Volume totale 24h '+v.ml+' mL ('+dis+'% disidr.) − '+vol2.toFixed(0)+' mL infusi nelle prime 2 ore, ÷ 22 ore.</div>'+
+        '<div class="hmax">max '+maxL+' mL · dalla 24ª alla 48ª ora dividere il volume per 24</div>';
+    } else {
+      f24='<div class="htag">'+ICO.droplet+'Idratazione 3ª-24ª ora</div>'+
+        '<div class="hbig">'+v.ml+' <small>mL/24h</small></div>'+
+        '<div class="hsub">Soluzione: <b>'+solName+'</b>. Inserisci il volume infuso nelle prime 2 ore (step 3) per calcolare i <b>mL/h</b> da somministrare = (volume 24h − vol. prime 2h) ÷ 22.</div>'+
+        '<div class="hmax">max '+maxL+' mL</div>';
+    }
+    $('fluid24').innerHTML=f24;
+  } else $('fluid24').innerHTML='<div class="htag">'+ICO.droplet+'Idratazione 3ª-24ª ora</div><div class="hsub" style="font-size:15px">Inserisci il peso o l\'età (step 1) per calcolare il volume e la velocità.</div>';
+
+  // --- insulina (riquadro in evidenza; preparazione diversa per linea guida) ---
+  let ins='';
+  if(p){
+    if(GL==='siedp'){
+      const r05=(0.05*p), r1=(0.1*p);
+      ins='<div class="htag">'+ICO.syringe+'Insulina regolare — somministra</div>'+
+        '<div class="hbig">'+r05.toFixed(1)+'–'+r1.toFixed(1)+' <small>mL/h</small></div>'+
+        '<div class="hsub"><b>Somministra insulina regolare a '+r05.toFixed(1)+' mL/h (0,05 U/kg/h) o '+r1.toFixed(1)+' mL/h (0,1 U/kg/h)</b>, secondo l\'età, con pompa-siringa. Preparazione: 50 U in 49,5 mL di fisiologica = 1 U/mL. Mai boli EV.</div>'+
+        '<div class="hmax">far defluire 20 mL per saturare il set · revisioni recenti 0,025-0,05 U/kg/h</div>';
+    } else {
+      const dose = p>30?0.1:0.05;
+      const units = Math.round(dose*p*24);
+      const ppNote = p>30? '0,1 U/kg/h (peso &gt;30 kg; 0,05 se pH &gt; 7,25)':'0,05 U/kg/h (peso ≤30 kg o pH &gt; 7,25)';
+      ins='<div class="htag">'+ICO.syringe+'Insulina regolare — somministra</div>'+
+        '<div class="hbig">'+units+' <small>U in 100 mL → 4 mL/h</small></div>'+
+        '<div class="hsub"><b>Prepara '+units+' U di insulina regolare in 100 mL di fisiologica e infondi a 4 mL/h</b> (dose '+ppNote+'), con pompa-siringa. Mai boli EV.</div>'+
+        (p>30?'<div class="hmax">alternativa 0,05 U/kg/h: '+Math.round(0.05*p*24)+' U in 100 mL a 4 mL/h · saturare il set con 20 mL</div>':'<div class="hmax">saturare il set facendo defluire 20 mL</div>');
+    }
+    $('insBox').innerHTML=ins;
+    // velocità di infusione calcolata → precompila il campo "velocità insulina attuale" se vuoto
+    computedInsRate = GL==='siedp' ? +(0.1*p).toFixed(1) : 4;
+    const ir=$('insRate'); if(ir && ir.value==='') ir.value=computedInsRate;
+  } else $('insBox').innerHTML='<div class="htag">'+ICO.syringe+'Insulina regolare</div><div class="hsub" style="font-size:15px">Inserisci il peso o l\'età (step 1) per calcolare la dose da somministrare.</div>';
+
+  // --- soluzione/K 2a via ---
+  refreshLastK(); renderSol(kC);
+
+  // --- bicarbonati ---
+  if(p){
+    let bic = '';
+    if(GL==='siedp'){
+      bic='SIEDP: <b>non utilizzare</b> i bicarbonati. Qualora fosse strettamente necessario: 1-2 mEq/kg = <span class="out">'+p+'–'+(p*2)+' mEq</span> in 60-120 min, <b>mai in bolo</b>.';
+    } else {
+      const canBic = (ph!==null&&hco3!==null&&ph<=6.85&&hco3<5);
+      bic = (canBic?'<span style="color:var(--red);font-weight:700">Criterio soddisfatto (pH ≤6,85 e HCO₃ &lt;5).</span> ':'')+
+        'Dose 1-2 mEq/kg: <span class="out">'+p+'–'+(p*2)+' mEq</span> in 2 ore + '+(p*0.25).toFixed(1)+'–'+(p*0.5).toFixed(1)+' mEq K (0,25/mEq). Sospendere a pH 7,1.';
+    }
+    $('bicBox').innerHTML=bic;
+  } else $('bicBox').innerHTML='Inserisci il peso per la dose.';
+
+  // --- mannitolo / sc ---
+  if(p){
+    if(GL==='siedp'){
+      $('mannitolBox').innerHTML='Mannitolo 0,5-1 g/kg = <span class="out">'+(p*0.5).toFixed(0)+'–'+p+' g</span> EV in 10-15 min, ripetibile. '+
+        'Alternativa: salina ipertonica 3% 2,5-5 mL/kg = <span class="out">'+(p*2.5).toFixed(0)+'–'+(p*5).toFixed(0)+' mL</span> in 10-15 min. Ridurre i liquidi di ⅓.';
+      $('scBox').innerHTML='SIEDP: criteri per il passaggio sc → pH &gt;7,30, HCO₃ &gt;15-18 mEq/L, glicemia &lt;200 mg/dL (oppure β-OHB &lt;1 mmol/L), capacità di alimentarsi. Mantenere l\'infusione ev 15-30 min dopo la prima dose sc.';
+    } else {
+      $('mannitolBox').innerHTML='Mannitolo 1 g/kg = <span class="out">'+p+' g</span> EV in 30 min · al 20%: 5 mL/kg = <span class="out">'+(p*5)+' mL</span>. Dimezzare i liquidi in corso.';
+      $('scBox').innerHTML='Dose totale sc 0,7-1 U/kg/24h = <span class="out">'+(p*0.7).toFixed(0)+'–'+(p*1).toFixed(0)+' U/die</span>. '+
+        'Rapido (50%): '+(p*0.35).toFixed(0)+'–'+(p*0.5).toFixed(0)+' U in 3 dosi. Lento (50%): '+(p*0.35).toFixed(0)+'–'+(p*0.5).toFixed(0)+' U/die.';
+    }
+  }
+  validateInputs(); updateNowBar();
+  autosaveSoft();
+}
+
+function renderSol(kC){
+  const hi = glucState==='hi';
+  if(GL==='siedp'){
+    $('solBox').innerHTML = hi
+      ? '<b>Glicemia &gt; 250-300 mg/dL:</b> Soluzione Fisiologica 0,9% + Potassio.'
+      : '<b>Glicemia ≤ 250-300 mg/dL:</b> aggiungere Glucosata 5-10% mantenendo una tonicità ≥ salina 0,45% (NaCl ≥ 77 mEq/L) + Potassio. <small>(se la glicemia continua a scendere → ridurre insulina a 0,03-0,025 U/kg/h, specie nei più piccoli)</small>';
+  } else {
+    $('solBox').innerHTML = hi
+      ? '<b>Glicemia &gt; 300 mg/dL:</b> Soluzione Fisiologica 0,9% + Potassio.'
+      : '<b>Glicemia ≤ 300 mg/dL:</b> Glucosata 5% + NaCl 50 mEq/L + Potassio. <small>(se glicemia resta &lt;150 nonostante riduzione insulina → glucosata 10%)</small>';
+  }
+  // dose K basata sul K misurato al MONITORAGGIO (≈2h), non sul K corretto iniziale
+  const p=effPeso().p;
+  const useKc = (lastK.kc!=null) ? lastK.kc : null;
+  const kEl=$('kBox'); kEl.style.marginTop='10px';
+  const maxRate = p? ' · max '+(0.5*p).toFixed(1)+' mEq/h (0,5 mEq/kg/h)':'';
+  if(useKc!==null){
+    const dn = useKc<2.5? '40' : '20';
+    const why = 'in base all\'ultimo K registrato nel monitoraggio'+(lastK.t?' (ore '+lastK.t+')':'')+': misurato '+lastK.k+' mEq/L → corretto '+useKc.toFixed(1)+(useKc<2.5?' (&lt; 2,5)':' (≥ 2,5)');
+    kEl.className='hero k';
+    kEl.innerHTML='<div class="htag">'+ICO.tube+'Potassio nella 2ª via — aggiungi</div>'+
+      '<div class="hbig">'+dn+' <small>mEq/L</small></div>'+
+      '<div class="hsub"><b>Aggiungi '+dn+' mEq/L di potassio</b> alla soluzione (metà KCl + metà K-fosfato). '+why+'.</div>'+
+      '<div class="hmax">metà KCl + metà K-fosfato'+maxRate+'</div>';
+  } else {
+    kEl.className='alert info';
+    kEl.innerHTML='<b>Per calcolare la dose di potassio non serve attendere le 2 ore:</b> registra subito un valore di K⁺ nel monitoraggio "Elettroliti + chetonemia" (barra a destra). Verrà usato l\'ultimo K⁺ registrato per indicare automaticamente 20 mEq/L (K corretto ≥ 2,5) o 40 mEq/L (&lt; 2,5), metà KCl + metà K-fosfato'+maxRate+'.';
+  }
+}
+
+// mostra la sequenza di azioni quando i dati iniziali sono completi
+function checkInitialData(){
+  const ready = effPeso().p!==null && num('stick')!==null && num('gcs')!==null;
+  const list=$('azioniList'), hint=$('azioniHint');
+  if(!list) return;
+  list.classList.toggle('hidden',!ready);
+  hint.style.display = ready?'none':'block';
+}
+function toggleAction(cb){ cb.closest('li').classList.toggle('done',cb.checked); }
+
+function setShock(s){ shockState=s; $('tabShock').classList.toggle('on',s); $('tabNoshock').classList.toggle('on',!s); recalc(); }
+function setGlucState(g){ glucState=g; $('gTabHi').classList.toggle('on',g==='hi'); $('gTabLo').classList.toggle('on',g==='lo'); recalc(); }
+
+// logica condivisa di aggiustamento; restituisce messaggio, classe e velocità suggerita
+function adjustCore(now,prev,rate){
+  if(now===null) return {msg:'Inserisci la glicemia del controllo per il suggerimento.',cls:'info',sug:rate};
+  let msg='',cls='info',sug=rate; const drop=prev!==null?prev-now:null;
+  if(GL==='siedp'){
+    if(now>300){ msg='Glicemia &gt;300 → proseguire l\'insulina in corso, solo fisiologica.'; cls='ok'; }
+    else if(now>=250){ msg='Glicemia 250-300 → <b>non ridurre l\'insulina</b>, aggiungere glucosata 5-10% mantenendo tonicità ≥0,45% (NaCl).'; cls='warn'; }
+    else { msg='Glicemia &lt;250 → glucosata già in corso; se continua a scendere <b>ridurre l\'insulina a 0,03-0,025 U/kg/h</b> (specie nei più piccoli), non sotto.'; cls='warn'; }
+    if(drop!==null && drop>100){ msg+='<br><span style="color:var(--red)">⚠️ Calo &gt;90-100 mg/dL/h: aumentare i glucidi (glucosata 5→10%) prima di ridurre l\'insulina.</span>'; cls='danger'; }
+  } else {
+    if(now>=250){
+      if(prev!==null&&prev>=250){ sug=(rate!==null?rate+1:rate); msg='Glicemia ≥250 in 2 controlli consecutivi → <b>aumentare la velocità del 25% (+1 mL/h)</b>'+(rate!==null?': '+rate+' → '+(rate+1)+' mL/h.':'.'); }
+      else { msg='Glicemia ≥250 → se confermata al controllo successivo, aumentare del 25% (+1 mL/h). Per ora ripetere/proseguire.'; }
+      cls='warn';
+    } else if(now>=150){
+      msg='Glicemia &lt;250 e ≥150 → <b>proseguire la velocità in corso.</b>'; cls='ok';
+    } else {
+      if(prev!==null && prev<150){
+        // già <150 al controllo precedente (riduzione insulina già fatta) → non ridurre oltre, passare a glucosata 10%
+        sug=rate;
+        msg='Glicemia &lt;150 ancora al controllo successivo (insulina già ridotta) → <b>non ridurre ulteriormente l\'insulina</b>; sostituire la glucosata 5% con glucosata 10% (2ª via), soprattutto se chetonemia elevata.'; cls='warn';
+      } else {
+        sug=(rate!==null?+(rate/2).toFixed(1):rate);
+        msg='Glicemia &lt;150 → <b>dimezzare la velocità dell\'insulina</b>'+(rate!==null?': '+rate+' → '+(rate/2).toFixed(1)+' mL/h':'')+' (0,05 U/kg/h se &gt;30 kg; 0,025 se &lt;30 kg).'; cls='warn';
+      }
+    }
+    if(drop!==null && drop>100){ msg+='<br><span style="color:var(--red)">⚠️ Calo glicemico '+drop+' mg/dL/h &gt; 90-100: ridurre l\'insulina e/o aumentare i glucidi.</span>'; cls='danger'; }
+  }
+  return {msg,cls,sug};
+}
+let suggestedRate=null;
+function insAdjust(){ const r=adjustCore(num('glicNow'),num('glicPrev'),num('insRate')); suggestedRate=r.sug; $('insAdjBox').className='alert '+r.cls; $('insAdjBox').innerHTML=r.msg; }
+
+// ---- Catena di controlli glicemici successivi (estensibile) ----
+let cmpCount=0; const cmpSug={};
+function onCmpToggle(d){ if(d.open && cmpCount===0) addCmpRow(); }
+function addCmpRow(){
+  const i=++cmpCount; const hour=i+1; // controllo a (i+1) ore dall'inizio insulina
+  const prevVal = i===1 ? ($('glicNow').value||'') : ($('cg_now_'+(i-1))?$('cg_now_'+(i-1)).value:'');
+  const rateVal = i===1 ? (suggestedRate!=null?suggestedRate:($('insRate').value||'')) : (cmpSug[i-1]!=null?cmpSug[i-1]:'');
+  const w=document.createElement('div'); w.className='cmprow'; w.style.marginTop='14px';
+  w.innerHTML='<div style="font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:5px">Controllo a +'+hour+'h</div>'+
+    '<div class="grid g3">'+
+    '<div><label>Glicemia al controllo precedente (mg/dL)</label><input type="number" inputmode="decimal" id="cg_prev_'+i+'" value="'+prevVal+'" oninput="cmpAdjust('+i+')"></div>'+
+    '<div><label>Glicemia al controllo a +'+hour+'h (mg/dL)</label><input type="number" inputmode="decimal" id="cg_now_'+i+'" oninput="cmpAdjust('+i+')"></div>'+
+    '<div><label>Velocità insulina attuale (mL/h)</label><input type="number" inputmode="decimal" step="0.5" id="cg_rate_'+i+'" value="'+rateVal+'" oninput="cmpAdjust('+i+')"></div>'+
+    '</div><div id="cg_box_'+i+'" class="result" style="margin-top:10px">Inserisci la glicemia al controllo a +'+hour+'h per il suggerimento.</div>';
+  $('cmpRows').appendChild(w);
+  cmpAdjust(i);
+}
+function cmpAdjust(i){ const r=adjustCore(num('cg_now_'+i),num('cg_prev_'+i),num('cg_rate_'+i)); cmpSug[i]=r.sug; $('cg_box_'+i).className='alert '+r.cls; $('cg_box_'+i).innerHTML=r.msg; }
+function resetCmp(){ cmpCount=0; for(const k in cmpSug) delete cmpSug[k]; const c=$('cmpRows'); if(c) c.innerHTML=''; const d=$('cmpDetails'); if(d) d.open=false; }
+
+// criteri di sospensione e schema sc, dipendenti dalla linea guida
+function renderStopSection(){
+  const crit = GL==='siedp'
+    ? ['pH &gt; 7,30','HCO₃⁻ &gt; 15-18 mEq/L','Glicemia &lt; 200 mg/dL (oppure β-OHB &lt; 1 mmol/L)','Elettroliti nella norma','Paziente senza nausea/vomito, in grado di alimentarsi']
+    : ['pH &gt; 7,30','HCO₃⁻ &gt; 15 mEq/L','Chetonemia assente','Glicemia &lt; 250 mg/dL','Elettroliti nella norma','Paziente senza nausea/vomito, in grado di alimentarsi (provare tè e fette biscottate)'];
+  $('stopCriteria').innerHTML = crit.map(c=>'<div class="chk"><input type="checkbox" class="stopc" onchange="stopCheck()"><label style="margin:0;font-weight:400;color:var(--ink)">'+c+'</label></div>').join('');
+  $('scScheme').innerHTML = GL==='siedp'
+    ? '<ul style="font-size:13.5px"><li>Mantenere l\'infusione ev <b>15-30 min</b> dopo la prima dose sc (15 per analogo rapido, fino a 30 per insulina regolare).</li>'+
+      '<li>Prima di sospendere, far alimentare il bambino con piccole quantità di cibi leggeri.</li>'+
+      '<li>Se le condizioni ambientali non permettono l\'uso ev: analogo rapido sc 0,3 U/kg, poi 0,1 U/kg ogni ora (oppure 0,15-0,20 ogni 2 ore).</li>'+
+      '<li>Dose di mantenimento sc secondo lo schema del centro di riferimento.</li></ul>'
+    : '<ul style="font-size:13.5px"><li>Dose totale <b>0,7-1 U/kg/24h</b> (0,7 nei prepuberi o DKA lieve).</li>'+
+      '<li>50% analogo ultrarapido (NovoRapid/Humalog) in 3 dosi prima di colazione, pranzo, cena.</li>'+
+      '<li>50% analogo lento (Lantus/Levemir) in monosomministrazione (mattino se &lt;6 anni; sera dopo cena per gli altri).</li>'+
+      '<li>Sospendere l\'EV solo 15-20 min dopo la prima dose di analogo rapido sc; mantenere l\'accesso venoso.</li>'+
+      '<li>Se la risoluzione avviene di notte, proseguire EV fino al mattino (attenzione: aumenta la sensibilità insulinica → rischio ipoglicemia/ipopotassiemia).</li></ul>';
+  stopCheck();
+}
+function stopCheck(){
+  const all=[...document.querySelectorAll('.stopc')];
+  const done=all.filter(c=>c.checked).length;
+  $('stopBox').innerHTML = done===all.length
+    ? '<div class="alert ok" style="margin:0">Tutti i criteri soddisfatti → si può sospendere l\'insulina EV. Iniziare lo schema sc qui sotto. Mantenere l\'EV 15-30 min dopo la prima dose sc.</div>'
+    : '<div class="alert info" style="margin:0">Criteri soddisfatti: '+done+'/'+all.length+'. Servono tutti per sospendere.</div>';
+}
+
+// ---------- Navigazione step ----------
+const STEPS=[
+ ['1','Diagnosi & valutazione iniziale','1'],
+ ['2','Esami, gravità, calcoli','2'],
+ ['3','Prime 2 ore — idratazione','3'],
+ ['4','Dalla 3ª alla 24ª ora','4',false,'grp'],
+ ['4.1','Insulina','4',true],
+ ['4.2','Idratazione/elettroliti','5',true],
+ ['5','Bicarbonati / casi part.','6'],
+ ['6','Sospensione insulina e.v. → s.c.','8'],
+ {divider:'Complicanza'},
+ ['!','Edema cerebrale','9',false,'compl'],
+];
+function buildNav(){
+  const n=$('nav');
+  n.innerHTML='';
+  STEPS.forEach(s=>{
+    if(s.divider){ const d=document.createElement('div'); d.className='navdiv'; d.textContent=s.divider; n.appendChild(d); return; }
+    const b=document.createElement('button');
+    b.className = s[3]?'sub':(s[4]==='compl'?'compl':'');
+    b.innerHTML='<span class="num">'+s[0]+'</span>'+s[1];
+    b.onclick=()=>goStep(s[2]);
+    b.dataset.t=s[2];
+    if(s[4]==='grp') b.dataset.members='4,5'; // il gruppo 4 copre 4.1 (step 4) e 4.2 (step 5)
+    n.appendChild(b);
+  });
+  goStep('1');
+}
+function goStep(t){
+  document.querySelectorAll('.step').forEach(el=>el.classList.toggle('hidden',el.dataset.step!==t));
+  document.querySelectorAll('#nav button').forEach(b=>{ const on = b.dataset.members? b.dataset.members.split(',').includes(t) : b.dataset.t===t; b.classList.toggle('active',on); });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+// banner "Procedi alla sezione successiva" in fondo a ogni sezione
+const FLOW=[
+ {t:'1',l:'Diagnosi e valutazione iniziale'},
+ {t:'2',l:'Esami, gravità e calcoli'},
+ {t:'3',l:'Prime 2 ore — idratazione'},
+ {t:'4',l:'4.1 Insulina (3ª-24ª ora)'},
+ {t:'5',l:'4.2 Idratazione ed elettroliti'},
+ {t:'6',l:'Bicarbonati e casi particolari'},
+ {t:'8',l:'Sospensione insulina e.v. → s.c.'},
+ {t:'9',l:'Complicanza: edema cerebrale'},
+];
+function buildNavBanners(){
+  FLOW.forEach((s,i)=>{
+    const sec=document.querySelector('.step[data-step="'+s.t+'"]'); if(!sec) return;
+    const next=FLOW[i+1];
+    const w=document.createElement('div'); w.className='nextwrap';
+    if(next){
+      w.innerHTML='<button class="nextbtn" onclick="goStep(\''+next.t+'\')">'+
+        '<span class="nbl"><small>Procedi alla sezione successiva</small><span>'+next.l+'</span></span>'+
+        '<span class="nba">→</span></button>';
+    } else {
+      w.innerHTML='<button class="nextbtn" onclick="goStep(\'1\')">'+
+        '<span class="nbl"><small>Fine del percorso</small><span>Torna alla sezione 1</span></span>'+
+        '<span class="nba">↺</span></button>';
+    }
+    sec.appendChild(w);
+  });
+}
+
+// ---------- Timer (ancorati all'ora del 1° prelievo, step 2) ----------
+const TIMER_DEFS=[
+ {id:'glic',name:'Glicemia + param. vitali + GCS',freq:60,fields:['Glicemia','GCS','StO2','P.A.','F.C.']},
+ {id:'elet',name:'Elettroliti + chetonemia',freq:120,fields:['Chetonemia','Na⁺','K⁺','Cl⁻']},
+ {id:'ega',name:'EGA (emogasanalisi)',freq:240,fields:['pH','HCO₃⁻','Glicemia ematica','Na⁺','K⁺','Cl⁻']},
+ {id:'emo',name:'Emocromo + azotemia',freq:360,fields:['Globuli Rossi','Emoglobina','Piastrine','Globuli Bianchi','Linfociti','Neutrofili','Azotemia']},
+];
+let timers={};
+function buildTimers(){
+  const c=$('timers'); c.innerHTML='';
+  TIMER_DEFS.forEach(d=>{
+    const div=document.createElement('div'); div.className='timer'; div.id='tm_'+d.id;
+    const fieldsHtml = d.fields.map((f,i)=>'<input type="text" id="tf_'+d.id+'_'+i+'" class="ti-field" placeholder="'+f+'" onkeydown="if(event.key===\'Enter\')logMeasure(\''+d.id+'\')">').join('');
+    div.innerHTML=
+      '<div class="tl"><div class="tname">'+d.name+'</div>'+
+      '<div class="tfreq">ogni '+(d.freq/60)+' h · prossimo: <span id="next_'+d.id+'">—</span></div></div>'+
+      '<div class="trow"><span class="tcount" id="cnt_'+d.id+'">--:--</span>'+
+      '<button class="btn sm" onclick="startTimer(\''+d.id+'\')">Avvia</button></div>'+
+      '<div class="tfields">'+fieldsHtml+'</div>'+
+      '<div class="tadd">'+
+      '<input type="time" id="tt_'+d.id+'" class="ti-time" title="ora del rilevamento (obbligatoria)">'+
+      '<button class="btn sm" style="flex:1" onclick="logMeasure(\''+d.id+'\')" title="registra rilevamento">'+ICO.plus+' registra</button></div>'+
+      '<div class="log" id="log_'+d.id+'"></div>';
+    c.appendChild(div);
+    timers[d.id]={freq:d.freq,nextDue:null,running:false,dueUntil:0,log:[]};
+  });
+}
+// ora di riferimento dal campo time dello step 2
+function getT0(){ const v=$('oraT0').value; if(!v) return null; const [h,m]=v.split(':').map(Number);
+  const d=new Date(); d.setHours(h,m,0,0); return d; }
+function fmtH(s){ s=Math.max(0,Math.round(s)); const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;
+  return (h>0?h+':':'')+(h>0&&m<10?'0':'')+m+':'+(ss<10?'0':'')+ss; }
+function clock(d){ return d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'}); }
+function scheduleFrom(id,base){ const t=timers[id]; let nd=new Date(base.getTime()+t.freq*60000);
+  const now=Date.now(); while(nd.getTime()<=now) nd=new Date(nd.getTime()+t.freq*60000); t.nextDue=nd; }
+function startTimer(id){ const base=getT0()||new Date(); scheduleFrom(id,base); timers[id].running=true; $('tm_'+id).classList.remove('due');
+  const tt=$('tt_'+id); if(tt&&!tt.value) tt.value=clock(new Date()); render(); }
+// registra un rilevamento (ora obbligatoria + campi specifici) sotto il timer
+function logMeasure(id){
+  const def=TIMER_DEFS.find(d=>d.id===id);
+  const tt=$('tt_'+id);
+  if(!tt.value) tt.value=clock(new Date()); // se l'ora è vuota usa quella attuale
+  const vals=[];
+  def.fields.forEach((f,i)=>{ const el=$('tf_'+id+'_'+i); const val=(el.value||'').trim(); if(val) vals.push({l:f,v:val}); });
+  // se è stato inserito K⁺, calcola e accoda il K⁺ corretto (formula con pH più recente)
+  const kIdx=vals.findIndex(x=>x.l==='K⁺');
+  if(kIdx>=0){ const kv=toNum(vals[kIdx].v); const ph=latestPh();
+    if(kv!=null){ const kc=kCorrect(kv,ph); vals.splice(kIdx+1,0,{l:'K⁺ corretto',v:kc.toFixed(1)}); } }
+  timers[id].log.unshift({t:tt.value, vals:vals});
+  renderLog(id);
+  // riallinea il prossimo controllo all'ora del rilevamento
+  const [h,m]=tt.value.split(':').map(Number); const base=new Date(); base.setHours(h,m,0,0);
+  scheduleFrom(id,base); timers[id].running=true; $('tm_'+id).classList.remove('due');
+  def.fields.forEach((f,i)=>{ $('tf_'+id+'_'+i).value=''; });
+  tt.value=clock(new Date());
+  recalc(); // aggiorna dose K della 2ª via, barra azioni ecc. (recalc ricalcola lastK)
+  render(); autosaveSoft();
+}
+function delMeasure(id,i){ timers[id].log.splice(i,1); renderLog(id); recalc(); autosaveSoft(); }
+// unità di misura per ciascun parametro monitorato
+const UNITS={'Glicemia':'mg/dL','GCS':'','StO2':'%','P.A.':'mmHg','F.C.':'bpm',
+ 'Chetonemia':'mmol/L','Na⁺':'mEq/L','K⁺':'mEq/L','K⁺ corretto':'mEq/L','Cl⁻':'mEq/L',
+ 'pH':'','HCO₃⁻':'mmol/L','Glicemia ematica':'mg/dL',
+ 'Globuli Rossi':'10⁶/µL','Emoglobina':'g/dL','Piastrine':'10³/µL','Globuli Bianchi':'10³/µL',
+ 'Linfociti':'%','Neutrofili':'%','Azotemia':'mg/dL'};
+function fmtEntry(e){ // supporta sia nuovo formato (vals) sia vecchio (v)
+  if(e.vals) return e.vals.length? e.vals.map(x=>'<b>'+x.l+'</b> '+x.v+(UNITS[x.l]?' '+UNITS[x.l]:'')).join(' · ') : '(nessun valore)';
+  return e.v||'(nessun valore)';
+}
+function renderLog(id){ const el=$('log_'+id); if(!el) return;
+  const L=timers[id].log;
+  el.innerHTML = L.length? L.map((e,i)=>'<div><span class="lt">'+e.t+'</span><span class="lv">'+fmtEntry(e)+'</span>'+
+    '<span class="dx" onclick="delMeasure(\''+id+'\','+i+')" title="elimina">✕</span></div>').join('')
+    : '<div style="color:var(--muted)">nessun rilevamento</div>';
+}
+function startAllTimers(){ const base=getT0()||new Date(); TIMER_DEFS.forEach(d=>{ scheduleFrom(d.id,base); timers[d.id].running=true; $('tm_'+d.id).classList.remove('due'); }); render(); updateSchedulePreview(); }
+function stopAllTimers(){ TIMER_DEFS.forEach(d=>{timers[d.id].running=false;}); }
+function render(){ const now=Date.now();
+  TIMER_DEFS.forEach(d=>{ const t=timers[d.id];
+    $('cnt_'+d.id).textContent = (t.running&&t.nextDue)? fmtH((t.nextDue.getTime()-now)/1000) : '--:--';
+    $('next_'+d.id).textContent = (t.running&&t.nextDue)? clock(t.nextDue) : '—';
+  });
+  if(typeof updateNowBar==='function') updateNowBar();
+}
+function setT0Now(){ const d=new Date(); $('oraT0').value=clock(d); onT0Change(); }
+function onT0Change(){
+  const t0=getT0();
+  $('t0disp').textContent = t0? clock(t0) : '—';
+  // appena impostata l'ora di riferimento i timer partono automaticamente
+  if(t0){ TIMER_DEFS.forEach(d=>{ scheduleFrom(d.id,t0); timers[d.id].running=true; $('tm_'+d.id).classList.remove('due'); }); }
+  render(); updateSchedulePreview(); autosaveSoft();
+}
+function updateSchedulePreview(){
+  const t0=getT0();
+  if(!t0){ $('schedulePreview').innerHTML='Imposta l\'ora del 1° prelievo (step 2) per vedere gli orari dei controlli.'; return; }
+  let html='Riferimento 1° prelievo: <b>'+clock(t0)+'</b><br>';
+  TIMER_DEFS.forEach(d=>{ const times=[]; for(let k=1;k<=3;k++) times.push(clock(new Date(t0.getTime()+k*d.freq*60000)));
+    html+='• <b>'+d.name+'</b> (ogni '+(d.freq/60)+'h): '+times.join(' · ')+' …<br>';
+  });
+  $('schedulePreview').innerHTML=html;
+}
+
+// ---------- Timer dedicato: prime 2 ore di fisiologica ----------
+let sf2h={remaining:2*3600,running:false};
+function renderSF2h(){ const s=Math.max(0,sf2h.remaining),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;
+  $('cnt_sf2h').textContent=h+':'+(m<10?'0':'')+m+':'+(ss<10?'0':'')+ss; }
+function startSF2h(){
+  sf2h.remaining=2*3600; sf2h.running=true;
+  $('next_sf2h').textContent=new Date().toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+  $('tm_sf2h').classList.remove('due'); renderSF2h();
+  const sf=$('c_sf'); if(sf) sf.checked=true;
+}
+function stopSF2h(){ sf2h.running=false; }
+function setVol2(v){ $('vol2h').value=v; recalc(); }
+
+let beepCtx=null;
+function beep(){
+  if(!$('soundOn').checked) return;
+  try{ beepCtx=beepCtx||new (window.AudioContext||window.webkitAudioContext)();
+    for(let i=0;i<3;i++){ const o=beepCtx.createOscillator(),g=beepCtx.createGain();
+      o.connect(g);g.connect(beepCtx.destination);o.frequency.value=880;o.type='sine';
+      g.gain.value=0.001;const t0=beepCtx.currentTime+i*0.4;
+      g.gain.setValueAtTime(0.001,t0);g.gain.exponentialRampToValueAtTime(0.3,t0+0.05);
+      g.gain.exponentialRampToValueAtTime(0.001,t0+0.3);o.start(t0);o.stop(t0+0.32);} }catch(e){}
+}
+setInterval(()=>{
+  const now=Date.now();
+  TIMER_DEFS.forEach(d=>{ const t=timers[d.id];
+    if(t.running && t.nextDue){
+      if(now>=t.nextDue.getTime()){ beep(); t.dueUntil=now+20000;
+        t.nextDue=new Date(t.nextDue.getTime()+t.freq*60000); // programma il successivo
+      }
+      $('tm_'+d.id).classList.toggle('due', now<t.dueUntil);
+    }
+  });
+  render();
+  if(sf2h.running){ sf2h.remaining--; if(sf2h.remaining<=0){ sf2h.running=false; $('tm_sf2h').classList.add('due'); beep();
+      $('next_sf2h').textContent='✔ 2 ore completate — si può iniziare l\'insulina (step 4.1)'; } renderSF2h(); }
+},1000);
+
+// ---------- Persistenza ----------
+const FIELDS=['peso','altezza','eta','stick','gcs','dis','ph','hco3','glic','cheto','na','k','cl','bun','ecg','oraT0','vol2h','glicNow','glicPrev','insRate'];
+const CHECKS=['c_monitor','c_2vie','c_prel','c_peso','c_bil','c_ecg','c_sf0','c_sf','c_abx','c_diuresi'];
+const ACTIONS=['c_monitor','c_2vie','c_prel','c_peso','c_bil','c_ecg','c_sf0'];
+function collectData(){ const d={f:{},c:{},logs:{}}; FIELDS.forEach(id=>d.f[id]=$(id).value);
+  CHECKS.forEach(id=>d.c[id]=$(id).checked); d.shock=shockState; d.gluc=glucState; d.gl=GL;
+  TIMER_DEFS.forEach(t=>d.logs[t.id]=timers[t.id].log); return d; }
+function saveLocal(){
+  try{ localStorage.setItem('dka_data',JSON.stringify(collectData())); $('saveState').textContent='✓ salvato '+new Date().toLocaleTimeString('it-IT'); }
+  catch(e){ $('saveState').textContent='salvataggio non disponibile in questo contesto'; }
+}
+function autosaveSoft(){ try{ localStorage.setItem('dka_data',JSON.stringify(collectData())); }catch(e){} }
+function loadLocal(){
+  try{ const d=JSON.parse(localStorage.getItem('dka_data')); if(!d){$('saveState').textContent='nessun dato salvato';return;}
+    FIELDS.forEach(id=>{ if(d.f[id]!==undefined)$(id).value=d.f[id]; });
+    CHECKS.forEach(id=>{ if(d.c[id]!==undefined)$(id).checked=d.c[id]; });
+    if(d.shock!==undefined) setShock(d.shock);
+    if(d.gluc) setGlucState(d.gluc);
+    ACTIONS.forEach(id=>{ const li=$(id)&&$(id).closest('li'); if(li) li.classList.toggle('done',$(id).checked); });
+    if(d.logs){ TIMER_DEFS.forEach(t=>{ if(Array.isArray(d.logs[t.id])){ timers[t.id].log=d.logs[t.id]; renderLog(t.id); } }); }
+    refreshLastK();
+    setGuide(d.gl||'opbg'); onT0Change(); $('saveState').textContent='✓ dati ricaricati';
+  }catch(e){ $('saveState').textContent='errore nel caricamento'; }
+}
+function resetAll(){
+  if(!confirm('Azzerare tutti i dati del paziente?')) return;
+  FIELDS.forEach(id=>$(id).value=''); CHECKS.forEach(id=>$(id).checked=false);
+  document.querySelectorAll('.stopc').forEach(c=>c.checked=false);
+  document.querySelectorAll('ol.actions li').forEach(li=>li.classList.remove('done'));
+  try{localStorage.removeItem('dka_data');}catch(e){}
+  shockState=false;glucState='hi';setShock(false);setGlucState('hi'); resetCmp();
+  buildTimers(); TIMER_DEFS.forEach(t=>renderLog(t.id)); refreshLastK(); render(); setGuide('opbg'); onT0Change(); $('saveState').textContent='nuovo paziente';
+}
+
+// ---------- Plausibilità input (evidenzia valori fuori range, non blocca) ----------
+const RANGES={peso:[1,120],eta:[0,18],altezza:[30,210],stick:[20,1500],gcs:[3,15],
+ ph:[6.5,7.8],hco3:[1,40],glic:[20,1500],cheto:[0,15],na:[100,180],k:[1.5,9],cl:[70,140],bun:[1,250],
+ vol2h:[0,6000],glicNow:[20,1500],glicPrev:[20,1500],insRate:[0,50]};
+function validateInputs(){
+  for(const id in RANGES){ const el=$(id); if(!el) continue;
+    const raw=(el.value||'').replace(',','.'); const v=parseFloat(raw);
+    const bad = el.value!=='' && !isNaN(v) && (v<RANGES[id][0]||v>RANGES[id][1]);
+    el.classList.toggle('bad',bad);
+    if(bad) el.title='Valore fuori dall\'intervallo plausibile ('+RANGES[id][0]+'–'+RANGES[id][1]+'). Verifica.';
+    else el.removeAttribute('title');
+  }
+}
+
+// ---------- Barra "cosa fare adesso" ----------
+function updateNowBar(){
+  const bar=$('nowbar'); if(!bar) return; const items=[];
+  const p=effPeso().p, ph=num('ph'), hco3=num('hco3');
+  if(ph!=null&&hco3!=null){ const s=(ph<7.1||hco3<5)?'Severa':(ph<7.2||hco3<10)?(GL==='siedp'?'Moderata':'Media'):'Lieve'; items.push(['Gravità',s]); }
+  if(p){ const hi=GL==='siedp'?10:7; const txt=shockState?(p*10)+'–'+(p*20)+' mL bolo':Math.min(p*5,300)+'–'+Math.min(p*hi,300)+' mL/h'; items.push(['Fisiologica',txt]); }
+  let nx=null; TIMER_DEFS.forEach(d=>{const t=timers[d.id]; if(t&&t.running&&t.nextDue&&(!nx||t.nextDue<nx)) nx=t.nextDue;});
+  if(nx) items.push(['Prossimo controllo',clock(nx)]);
+  if(!items.length){ bar.className='nowbar empty'; bar.innerHTML=''; setHeadH(); return; }
+  bar.className='nowbar';
+  bar.innerHTML=items.map(i=>'<span class="nb-i"><span class="nb-lbl">'+i[0]+'</span> <b>'+i[1]+'</b></span>').join('');
+  setHeadH();
+}
+// allinea l'offset delle colonne sticky all'altezza reale dell'header
+function setHeadH(){ const h=document.querySelector('header'); if(h) document.documentElement.style.setProperty('--headh', h.offsetHeight+'px'); }
+window.addEventListener('resize', setHeadH);
+
+// ---------- Scheda riassuntiva ----------
+function sRow(l,v){ return v?'<div><span>'+l+'</span><span>'+v+'</span></div>':''; }
+function openSummary(){ buildSummary(); $('summaryModal').classList.add('open'); }
+function closeSummary(){ $('summaryModal').classList.remove('open'); }
+function printSummary(){ document.body.classList.add('sumprint'); window.print(); setTimeout(()=>document.body.classList.remove('sumprint'),400); }
+function buildSummary(){
+  const ep=effPeso(), pw=ep.p, ph=num('ph'), hco3=num('hco3'), glic=num('glic'), dis=parseFloat($('dis').value);
+  let sev='—'; if(ph!=null&&hco3!=null){ sev=(ph<7.1||hco3<5)?'Severa':(ph<7.2||hco3<10)?(GL==='siedp'?'Moderata':'Media'):'Lieve'; }
+  let h='<h2>Scheda DKA — riepilogo paziente</h2>';
+  h+='<div class="msub">Linea guida: <b>'+(GL==='siedp'?'SIEDP 2015':'OPBG 2015')+'</b> · generata il '+new Date().toLocaleString('it-IT')+'</div>';
+  h+='<h3>Dati paziente</h3><div class="sumgrid">';
+  h+=sRow('Peso',pw?(pw+' kg'+(ep.stimato?' (stima da età)':'')):'');
+  h+=sRow('Età',num('eta')!=null?num('eta')+' anni':'');
+  h+=sRow('Disidratazione',(dis||'')+'%');
+  h+=sRow('GCS',num('gcs')!=null?num('gcs'):'');
+  h+=sRow('Stick glicemico',num('stick')!=null?num('stick')+' mg/dL':'');
+  h+='</div>';
+  h+='<h3>Esami acido-base / elettroliti</h3><div class="sumgrid">';
+  h+=sRow('pH',ph!=null?ph:'')+sRow('HCO₃⁻',hco3!=null?hco3+' mmol/L':'');
+  h+=sRow('Glicemia',glic!=null?glic+' mg/dL':'')+sRow('Chetonemia',num('cheto')!=null?num('cheto')+' mmol/L':'');
+  h+=sRow('Na⁺',num('na')!=null?num('na')+' mEq/L':'')+sRow('K⁺',num('k')!=null?num('k')+' mEq/L':'');
+  h+=sRow('Cl⁻',num('cl')!=null?num('cl')+' mEq/L':'')+sRow('Azotemia',num('bun')!=null?num('bun')+' mg/dL':'');
+  h+=sRow('ECG',$('ecg').value||'')+sRow('Gravità',sev);
+  h+='</div>';
+  h+='<h3>Terapia calcolata</h3><div class="sumgrid">';
+  if(pw){
+    const hi=GL==='siedp'?10:7;
+    h+=sRow('Fisiologica prime 2h', shockState?(pw*10)+'–'+(pw*20)+' mL bolo':Math.min(pw*5,300)+'–'+Math.min(pw*hi,300)+' mL/h');
+    h+=sRow('Insulina', GL==='siedp'?((0.05*pw).toFixed(1)+'–'+(0.1*pw).toFixed(1)+' mL/h (1 U/mL)'):(Math.round((pw>30?0.1:0.05)*pw*24)+' U in 100 mL a 4 mL/h'));
+    const vol2=num('vol2h'); const v=volume24(pw,dis);
+    h+=sRow('Volume totale 24h', v.ml+' mL');
+    if(vol2!=null) h+=sRow('Velocità 2ª via', ((v.ml-vol2)/22).toFixed(0)+' mL/h');
+    if(lastK.kc!=null) h+=sRow('Potassio 2ª via',(lastK.kc<2.5?'40':'20')+' mEq/L (K corretto '+lastK.kc.toFixed(1)+')');
+  } else h+=sRow('—','inserisci il peso per le dosi');
+  h+='</div>';
+  const anyLog=TIMER_DEFS.some(d=>timers[d.id].log.length);
+  if(anyLog){
+    h+='<h3>Rilevamenti registrati</h3><div class="sumlog">';
+    TIMER_DEFS.forEach(d=>{ timers[d.id].log.slice().reverse().forEach(e=>{ h+='<div class="sl"><b>'+e.t+'</b> — '+d.name+': '+fmtEntry(e)+'</div>'; }); });
+    h+='</div>';
+  }
+  h+='<div class="sumacts"><button class="btn" onclick="printSummary()">'+ICO.printer+' Stampa / PDF</button><button class="btn ghost" onclick="closeSummary()">Chiudi</button></div>';
+  $('summarySheet').innerHTML=h;
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeSummary(); });
+
+// ============== MODALITÀ ESERCITAZIONE (trainer, isolata) ==============
+let TR_GL='opbg', trBuilt=false;
+let trState={ci:0,si:0,score:0,total:0,obj:null};
+function switchMode(m){
+  const tr=m==='trainer';
+  document.body.classList.toggle('trainer-mode',tr);
+  $('appClinica').style.display=tr?'none':'';
+  $('appTrainer').style.display=tr?'':'none';
+  $('modeClin').classList.toggle('on',!tr);
+  $('modeTrain').classList.toggle('on',tr);
+  if(tr && !trBuilt){ trRenderHome(); trBuilt=true; }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function trSetGuide(v){ TR_GL=v; const r=document.querySelector('input[name=trgl][value='+v+']'); if(r)r.checked=true; trRenderHome(); }
+function trFisio(p){ const hi=TR_GL==='siedp'?10:7; return Math.min(p*5,300)+'–'+Math.min(p*hi,300)+' mL/h'; }
+function trInsPrep(p){ if(TR_GL==='siedp') return (0.05*p).toFixed(1)+' mL/h (0,05 U/kg/h · 1 U/mL)'; const d=p>30?0.1:0.05; return Math.round(d*p*24)+' U in 100 mL a 4 mL/h ('+d+' U/kg/h)'; }
+
+const CASES=[
+{ name:'Caso 1', desc:'Bambina di 6 anni, 20 kg — accesso in PS', build:function(){
+  const p=20, GL=TR_GL, sevLbl=GL==='siedp'?'Moderata':'Media', kc=kCorrect(4.2,7.18);
+  return {title:'Caso 1',
+   vignette:'Bambina 6 anni, 20 kg, vigile (GCS 15). Poliuria, polidipsia, disidratazione ~7%. Stick 450 mg/dL. EGA: pH 7,18 · HCO₃ 9 · glicemia 460 · Na 132 · K 4,2 · Cl 102 · β-OHB 5.',
+   steps:[
+    {q:'In base a pH 7,18 e HCO₃ 9, la gravità è:',opts:[
+      {t:'Lieve',ok:false,fb:''},
+      {t:sevLbl+' (pH<7,2 e HCO₃<10)',ok:true,fb:'pH 7,18 e HCO₃ 9 → DKA '+sevLbl.toLowerCase()+'; non severa (pH non <7,1).'},
+      {t:'Severa → terapia intensiva',ok:false,fb:''}]},
+    {q:'Qual è la prima cosa da fare?',opts:[
+      {t:'Iniziare subito insulina ev',ok:false,fb:''},
+      {t:'Reidratare con soluzione fisiologica 0,9%',ok:true,fb:'Prima si reintegra il deficit idrosalino; l\'insulina non va iniziata prima di 90-120 min/2 ore.'},
+      {t:'Bolo di insulina ev',ok:false,fb:''},
+      {t:'Bicarbonati',ok:false,fb:''}]},
+    {q:'Velocità della fisiologica nelle prime 2 ore (20 kg, non shock)?',opts:[
+      {t:trFisio(p),ok:true,fb:'5-'+(GL==='siedp'?'10':'7')+' mL/kg/h per le prime '+(GL==='siedp'?'90-120 min':'2 ore')+' (max 300 mL/h).'},
+      {t:'20–40 mL/h',ok:false,fb:''},
+      {t:'Bolo di 400 mL',ok:false,fb:''}]},
+    {q:'Quando iniziare l\'insulina?',opts:[
+      {t:'Subito, insieme ai liquidi',ok:false,fb:''},
+      {t:'Dopo 90-120 min/2 ore di reidratazione',ok:true,fb:'L\'insulina si inizia dopo l\'avvio della reidratazione, mai in bolo.'},
+      {t:'Solo se glicemia >600',ok:false,fb:''}]},
+    {q:'Preparazione/velocità dell\'insulina (20 kg)?',opts:[
+      {t:trInsPrep(p),ok:true,fb:'Peso ≤30 kg → 0,05 U/kg/h. '+(GL==='siedp'?'Diluizione 1 U/mL: velocità = U/h.':'Unità totali in 100 mL, infusi a 4 mL/h.')},
+      {t:'Bolo 0,1 U/kg ev',ok:false,fb:''},
+      {t:(GL==='siedp'?'4 mL/h fissi':'48 U in 100 mL a 4 mL/h'),ok:false,fb:''}]},
+    {q:'Potassio nelle prime 2 ore (K corretto ≈ '+kc.toFixed(1)+')?',opts: GL==='siedp'?[
+      {t:'Aggiungere K 20 mEq/L dall\'inizio dell\'idratazione',ok:true,fb:'SIEDP: K integrato fin dall\'inizio (20 mEq/L se K normale).'},
+      {t:'Nessun K fino alla 3ª ora',ok:false,fb:''},
+      {t:'40 mEq/L subito',ok:false,fb:''}]:[
+      {t:'Non aggiungere K nelle prime 2 ore (K corretto ≥2,5, ECG normale)',ok:true,fb:'OPBG: nelle prime 2 ore K solo se K corretto <2,5 o anomalie ECG.'},
+      {t:'20 mEq/L subito',ok:false,fb:''},
+      {t:'40 mEq/L subito',ok:false,fb:''}]},
+    {q:'Dopo 1 ora la glicemia è 380 (era 460). Come procedi?',opts:[
+      {t:'Proseguire: calo ~80 mg/dL/h adeguato',ok:true,fb:'Il calo non deve superare 90-100 mg/dL/h; 80/h è adeguato.'},
+      {t:'Aumentare l\'insulina',ok:false,fb:''},
+      {t:'Bolo di insulina',ok:false,fb:''}]}
+   ],
+   learn:['Reidratare prima dell\'insulina','Insulina mai in bolo, non prima di 90-120 min/2 ore','Calo glicemico graduale (<90-100 mg/dL/h)','Potassio secondo K corretto / linea guida']};
+}},
+{ name:'Caso 2', desc:'Maschio di 10 anni, 30 kg — accesso in PS', build:function(){
+  const p=30, GL=TR_GL, kc=kCorrect(3.0,7.05), kdose=GL==='siedp'?'40':'20';
+  return {title:'Caso 2',
+   vignette:'Maschio 10 anni, 30 kg, letargico (GCS 12), respiro di Kussmaul, polso debole e refill >3s, disidratazione 10%. Stick 600. EGA: pH 7,05 · HCO₃ 4 · glicemia 620 · Na 130 · K 3,0 · Cl 100 · β-OHB 6.',
+   steps:[
+    {q:'Gravità e destinazione?',opts:[
+      {t:'Severa → terapia intensiva',ok:true,fb:'pH <7,1 con shock e coscienza depressa → DKA severa, terapia intensiva.'},
+      {t:'Media → reparto',ok:false,fb:''},
+      {t:'Lieve → osservazione',ok:false,fb:''}]},
+    {q:'Paziente con segni di shock: prima mossa?',opts:[
+      {t:'Bolo di cristalloidi 10-20 mL/kg',ok:true,fb:'Nello shock prima si ripristina il volume con cristalloidi (non colloidi); non superare 30 mL/kg.'},
+      {t:'Insulina ev subito',ok:false,fb:''},
+      {t:'Bicarbonati',ok:false,fb:''},
+      {t:'Glucosata 10%',ok:false,fb:''}]},
+    {q:'Volume del bolo iniziale (30 kg)?',opts:[
+      {t:'300–600 mL (10-20 mL/kg)',ok:true,fb:'10-20 mL/kg = 300-600 mL; tetto massimo 30 mL/kg (900 mL).'},
+      {t:'900 mL in un unico bolo',ok:false,fb:''},
+      {t:'150 mL',ok:false,fb:''},
+      {t:'2000 mL',ok:false,fb:''}]},
+    {q:'pH 7,05: somministri bicarbonati?',opts:[
+      {t:'No',ok:true,fb: GL==='siedp'?'SIEDP: i bicarbonati non vanno usati nella DKA pediatrica.':'OPBG: solo se pH ≤6,85 e HCO₃ <5; qui pH 7,05 → no.'},
+      {t:'Sì, 1 mEq/kg',ok:false,fb:''},
+      {t:'Sì, 2 mEq/kg in bolo',ok:false,fb:''}]},
+    {q:'Potassio (K corretto ≈ '+kc.toFixed(1)+')?',opts:[
+      {t:'Integrare subito '+kdose+' mEq/L + monitor ECG',ok:true,fb:'K corretto <2,5 → potassio fin dalle prime ore ('+kdose+' mEq/L) con monitor ECG.'},
+      {t:'Nessun K, il valore è 3,0',ok:false,fb:'Va corretto per il pH: il K corretto è ~2,1.'},
+      {t:'Attendere la 3ª ora',ok:false,fb:''}]},
+    {q:'Insulina in questo paziente?',opts:[
+      {t:'Mai in bolo; iniziare dopo la reidratazione a 0,05 U/kg/h',ok:true,fb:'Nessun bolo; dose 0,05 U/kg/h (≤30 kg / pH <7,25), dopo l\'avvio dei liquidi.'},
+      {t:'Bolo 0,1 U/kg ev',ok:false,fb:''},
+      {t:'0,1 U/kg/h subito, prima dei liquidi',ok:false,fb:''}]}
+   ],
+   learn:['DKA severa/shock → terapia intensiva, cristalloidi (no colloidi)','Non superare 30 mL/kg di boli','Bicarbonati non indicati (pH >6,85)','K corretto basso → integrare subito + ECG','Insulina mai in bolo, dopo la reidratazione']};
+}},
+{ name:'Caso 3', desc:'Bambino di 5 anni, 18 kg — durante il trattamento', build:function(){
+  const p=18, GL=TR_GL;
+  const man=GL==='siedp'?'Mannitolo 0,5-1 g/kg (9–18 g) in 10-15 min':'Mannitolo 1 g/kg (18 g) in 30 min';
+  const liq=GL==='siedp'?'Ridurre i liquidi di ⅓':'Dimezzare la velocità dei liquidi';
+  return {title:'Caso 3',
+   vignette:'Bambino 5 anni, 18 kg, in trattamento per DKA severa da ~5 ore con miglioramento biochimico. Compaiono cefalea, vomito, sonnolenza, bradicardia e aumento della pressione diastolica, poi riduzione dello stato di coscienza.',
+   steps:[
+    {q:'Quale complicanza sospetti?',opts:[
+      {t:'Edema cerebrale',ok:true,fb:'Cefalea, vomito, sonnolenza, bradicardia e ↑PA diastolica in corso di terapia → edema cerebrale.'},
+      {t:'Ipoglicemia',ok:false,fb:''},
+      {t:'Sepsi',ok:false,fb:''},
+      {t:'Ipernatriemia',ok:false,fb:''}]},
+    {q:'Cosa fai per primo?',opts:[
+      {t:'Iniziare subito la terapia, senza attendere la TAC',ok:true,fb:'La terapia va iniziata immediatamente; gli esami non devono ritardarla.'},
+      {t:'Eseguire prima la TAC',ok:false,fb:''},
+      {t:'Aumentare i liquidi e osservare',ok:false,fb:''}]},
+    {q:'Terapia osmotica?',opts:[
+      {t:man,ok:true,fb:'Mannitolo (in SIEDP in alternativa salina ipertonica 3% 2,5-5 mL/kg), ripetibile.'},
+      {t:'Glucosata 10%',ok:false,fb:''},
+      {t:'Furosemide ev',ok:false,fb:''}]},
+    {q:'Gestione dei liquidi?',opts:[
+      {t:liq,ok:true,fb: GL==='siedp'?'SIEDP: ridurre i liquidi di ⅓.':'OPBG: dimezzare la velocità di infusione.'},
+      {t:'Aumentare i liquidi',ok:false,fb:''},
+      {t:'Sospendere del tutto i liquidi',ok:false,fb:''}]},
+    {q:'Altre misure?',opts:[
+      {t:'Sollevare la testa, poi TAC, terapia intensiva',ok:true,fb:'Capo sollevato; TAC solo dopo aver iniziato la terapia; gestione in terapia intensiva.'},
+      {t:'Posizione di Trendelenburg',ok:false,fb:''},
+      {t:'Bolo di glucosata',ok:false,fb:''}]},
+    {q:'Quale è un fattore di rischio per l\'edema cerebrale?',opts:[
+      {t:'Giovane età, DKA severa, calo osmolare rapido, mancata risalita del Na',ok:true,fb:'Sono tutti fattori di rischio riconosciuti.'},
+      {t:'Solo l\'iperglicemia lieve',ok:false,fb:''},
+      {t:'Età avanzata',ok:false,fb:''}]}
+   ],
+   learn:['Riconoscere precocemente l\'edema cerebrale','Trattare subito, prima della TAC','Mannitolo (±salina ipertonica in SIEDP) e ridurre i liquidi','Fattori di rischio: età piccola, severità, cali osmolari rapidi, Na che non risale']};
+}},
+{ name:'Caso 4', desc:'Ragazza di 12 anni, 40 kg — accesso in PS', build:function(){
+  const p=40, GL=TR_GL;
+  return {title:'Caso 4',
+   vignette:'Ragazza di 12 anni, 40 kg, vigile, sintomi classici, disidratazione lieve (~5%), <b>non vomita</b>. Stick 380. EGA: pH 7,33 · HCO₃ 17 · glicemia 380 · Na 138 · K 4,0 · Cl 104 · β-OHB 2,5.',
+   steps:[
+    {q:'Come inquadri il quadro (pH 7,33 · HCO₃ 17 · β-OHB 2,5)?',opts:[
+      {t:'Iperglicemia/chetosi lieve, non DKA conclamata (pH≥7,30 e HCO₃≥15)',ok:true,fb:'Non soddisfa i criteri di DKA (pH<7,30 e HCO₃<15): esordio lieve.'},
+      {t:'DKA severa',ok:false,fb:''},
+      {t:'DKA moderata',ok:false,fb:''}]},
+    {q:'Disidratazione lieve, no vomito, no diselettrolitemie: strategia?',opts:[
+      {t:'2 ore di fisiologica, poi insulina sottocute con monitoraggio standard',ok:true,fb:'In esordio lieve (pH>7,30, disidratazione modesta, no vomito) dopo 2h di fisiologica si avvia direttamente l\'insulina sc.'},
+      {t:'Insulina ev in pompa subito',ok:false,fb:''},
+      {t:'Solo osservazione, nessuna terapia',ok:false,fb:''}]},
+    {q:'Velocità della fisiologica iniziale (40 kg)?',opts:[
+      {t:trFisio(p),ok:true,fb:'5-'+(GL==='siedp'?'10':'7')+' mL/kg/h, comunque non oltre 300 mL/h.'},
+      {t:'Bolo di 1 litro',ok:false,fb:''},
+      {t:'40 mL/h',ok:false,fb:''}]},
+    {q:'Prima di iniziare l\'insulina sottocute, cosa verifichi?',opts:[
+      {t:'Che il bambino si alimenti e non vomiti (provare tè e fette biscottate)',ok:true,fb:'L\'alimentazione tollerata è condizione per passare alla sc.'},
+      {t:'Che la glicemia sia <70',ok:false,fb:''},
+      {t:'Niente, si può sempre',ok:false,fb:''}]},
+    {q:'Che monitoraggio glicemico imposti?',opts:[
+      {t:'Profilo glicemico standard',ok:true,fb:'In esordio lieve avviato a sc si usa il monitoraggio standard.'},
+      {t:'Glicemia ogni 15 minuti',ok:false,fb:''},
+      {t:'Nessun monitoraggio',ok:false,fb:''}]}
+   ],
+   learn:['Non tutto è DKA conclamata: pH≥7,30 e HCO₃≥15 = esordio lieve','Dopo 2h di fisiologica → insulina sc, senza pompa ev','Passare a sc solo se il bambino si alimenta e non vomita']};
+}},
+{ name:'Caso 5', desc:'Bambino di 8 anni, 25 kg — in trattamento', build:function(){
+  return {title:'Caso 5',
+   vignette:'Bambino di 8 anni, 25 kg, in trattamento per DKA con insulina ev in corso. Glicemia all\'inizio 500 mg/dL; dopo 1 ora 360 mg/dL (calo di 140 mg/dL/h).',
+   steps:[
+    {q:'Il calo da 500 a 360 in 1 ora è adeguato?',opts:[
+      {t:'No, troppo rapido (>90-100 mg/dL/h)',ok:true,fb:'La glicemia non deve scendere più di 90-100 mg/dL/h.'},
+      {t:'Sì, ottimo',ok:false,fb:''},
+      {t:'Indifferente',ok:false,fb:''}]},
+    {q:'Provvedimento per un calo troppo rapido?',opts:[
+      {t:'Aggiungere glucosata e/o ridurre la velocità dell\'insulina, mai boli',ok:true,fb:'Si introduce glucosio (mantenendo tonicità ≥0,45% in SIEDP) e/o si riduce l\'insulina; mai boli.'},
+      {t:'Aumentare l\'insulina',ok:false,fb:''},
+      {t:'Sospendere i liquidi',ok:false,fb:''}]},
+    {q:'Quando si introduce di norma la glucosata?',opts:[
+      {t:'Quando la glicemia scende a 250-300 mg/dL (o prima, se calo rapido)',ok:true,fb:'Glucosata a 250-300 mg/dL; anticipata se la glicemia cala troppo in fretta.'},
+      {t:'Solo sotto 100 mg/dL',ok:false,fb:''},
+      {t:'Mai',ok:false,fb:''}]},
+    {q:'Rischio principale di un calo osmolare troppo rapido?',opts:[
+      {t:'Edema cerebrale',ok:true,fb:'I cali osmotici rapidi sono un fattore di rischio per edema cerebrale.'},
+      {t:'Crisi ipertensiva',ok:false,fb:''},
+      {t:'Iperkaliemia',ok:false,fb:''}]},
+    {q:'Cosa non va mai fatto, anche con glicemia elevata?',opts:[
+      {t:'Boli di insulina ev',ok:true,fb:'Mai boli: riducono l\'osmolarità troppo in fretta.'},
+      {t:'Monitorare la glicemia ogni ora',ok:false,fb:''},
+      {t:'Idratare',ok:false,fb:''}]}
+   ],
+   learn:['Calo glicemico graduale (<90-100 mg/dL/h)','Calo rapido → aggiungere glucosata e/o ridurre insulina, mai boli','I cali osmotici rapidi predispongono all\'edema cerebrale']};
+}},
+{ name:'Caso 6', desc:'Bambino di 7 anni, 22 kg — accesso in PS', build:function(){
+  const GL=TR_GL, kc=kCorrect(3.3,7.0), kdose=GL==='siedp'?'40':'20';
+  return {title:'Caso 6',
+   vignette:'Bambino di 7 anni, 22 kg. EGA: pH 7,0 · HCO₃ 6 · glicemia 500 · Na 133 · <b>K 3,3</b> · Cl 102 · β-OHB 5. Il potassio sierico sembra quasi normale.',
+   steps:[
+    {q:'K sierico 3,3 con pH 7,0: va corretto per il pH?',opts:[
+      {t:'Sì: K corretto ≈ '+kc.toFixed(1)+' mEq/L (basso)',ok:true,fb:'Si sottrae 0,6 per ogni 0,1 di pH sotto 7,2: il K reale è più basso del misurato.'},
+      {t:'No, 3,3 è normale',ok:false,fb:''},
+      {t:'Solo se misurato <2,5',ok:false,fb:''}]},
+    {q:'Con K corretto ~'+kc.toFixed(1)+', gestione del potassio?',opts:[
+      {t:'Integrare il K subito ('+kdose+' mEq/L) + monitor ECG',ok:true,fb:'K corretto <2,5 → potassio fin dall\'inizio con ECG.'},
+      {t:'Nessun K, il valore è 3,3',ok:false,fb:''},
+      {t:'Attendere la 3ª ora',ok:false,fb:''}]},
+    {q:'In quale forma somministri il potassio?',opts:[
+      {t:'Metà KCl + metà K-fosfato',ok:true,fb:'Il K-fosfato evita l\'acidosi ipercloremica; attenzione all\'ipocalcemia.'},
+      {t:'Tutto come KCl',ok:false,fb:''},
+      {t:'Tutto come K-fosfato',ok:false,fb:''}]},
+    {q:'Velocità massima di infusione del potassio?',opts:[
+      {t:'0,5 mEq/kg/h',ok:true,fb:'Non superare 0,5 mEq/kg/h.'},
+      {t:'2 mEq/kg/h',ok:false,fb:''},
+      {t:'Nessun limite',ok:false,fb:''}]},
+    {q:'Se l\'ipokaliemia persiste nonostante la supplementazione massimale?',opts:[
+      {t:'Ridurre temporaneamente l\'insulina',ok:true,fb:'L\'insulina fa rientrare il K nelle cellule: ridurla aiuta a risalire.'},
+      {t:'Aumentare l\'insulina',ok:false,fb:''},
+      {t:'Sospendere i liquidi',ok:false,fb:''}]}
+   ],
+   learn:['Correggere sempre il K per il pH','K corretto <2,5 → integrare subito + ECG','Metà KCl + metà K-fosfato, max 0,5 mEq/kg/h','Ipokaliemia resistente → ridurre l\'insulina']};
+}},
+{ name:'Caso 7', desc:'Bambina di 6 anni, 20 kg — in trattamento', build:function(){
+  return {title:'Caso 7',
+   vignette:'Bambina di 6 anni, 20 kg, in trattamento per DKA. La glicemia scende regolarmente ma la <b>sodiemia non sale</b> (resta bassa).',
+   steps:[
+    {q:'Perché la mancata risalita del sodio è preoccupante?',opts:[
+      {t:'È un fattore di rischio per edema cerebrale',ok:true,fb:'Un Na che non risale mentre la glicemia cala segnala rischio di edema cerebrale.'},
+      {t:'È del tutto normale',ok:false,fb:''},
+      {t:'Indica guarigione',ok:false,fb:''}]},
+    {q:'Mentre la glicemia cala, cosa dovrebbe fare il Na?',opts:[
+      {t:'Aumentare (~1,5 mEq ogni 90 mg/dL di calo glicemico)',ok:true,fb:'Il Na deve salire per evitare cadute brusche dell\'osmolarità.'},
+      {t:'Diminuire',ok:false,fb:''},
+      {t:'Restare invariato',ok:false,fb:''}]},
+    {q:'Che tonicità mantieni nelle soluzioni per ridurre il rischio?',opts:[
+      {t:'Almeno pari alla salina 0,45% (NaCl ≥77 mEq/L)',ok:true,fb:'Mai soluzioni troppo ipotoniche durante il calo glicemico.'},
+      {t:'Soluzioni ipotoniche/acqua libera',ok:false,fb:''},
+      {t:'Solo glucosata senza NaCl',ok:false,fb:''}]},
+    {q:'Come si calcola il Na corretto?',opts:[
+      {t:'Na misurato + 2,75 per ogni 100 mg/dL di glicemia oltre 100',ok:true,fb:'La sodiemia è fittiziamente bassa per l\'iperglicemia.'},
+      {t:'Na − glicemia',ok:false,fb:''},
+      {t:'Na × 2',ok:false,fb:''}]},
+    {q:'Se compaiono segni neurologici con Na che non risale, sospetti:',opts:[
+      {t:'Edema cerebrale',ok:true,fb:'Va trattato subito, senza attendere la TAC.'},
+      {t:'Ipoglicemia',ok:false,fb:''},
+      {t:'Sepsi',ok:false,fb:''}]}
+   ],
+   learn:['Il Na deve risalire col calo della glicemia','Mantenere tonicità ≥0,45%','Mancata risalita del Na → rischio edema cerebrale']};
+}},
+{ name:'Caso 8', desc:'Ragazzo di 14 anni, 55 kg — diabete noto', build:function(){
+  const p=55, GL=TR_GL, dis=7;
+  const insTxt = GL==='siedp' ? (0.1*p).toFixed(1)+' mL/h (0,1 U/kg/h · 1 U/mL)' : Math.round(0.1*p*24)+' U in 100 mL a 4 mL/h (0,1 U/kg/h)';
+  const vol = volume24(p,dis).ml;
+  return {title:'Caso 8',
+   vignette:'Ragazzo di 14 anni, 55 kg, con diabete tipo 1 <b>noto</b> e microinfusore. Nausea, vomito, iperglicemia e chetonemia. EGA: pH 7,15 · HCO₃ 8 · glicemia 420 · Na 136 · K 4,5 · β-OHB 4. PCR elevata.',
+   steps:[
+    {q:'Causa più probabile della DKA in T1DM noto con microinfusore?',opts:[
+      {t:'Interruzione/malfunzione dell\'insulina (set/microinfusore) o malattia intercorrente',ok:true,fb:'Nel diabete noto la DKA deriva spesso da insulina mancata/guasto set o malattia acuta.'},
+      {t:'Eccesso di insulina',ok:false,fb:''},
+      {t:'Errore dietetico isolato',ok:false,fb:''}]},
+    {q:'Oltre alla terapia della DKA, cosa non dimenticare?',opts:[
+      {t:'Cercare e trattare la causa scatenante (infezione, guasto del set)',ok:true,fb:'Identificare il fattore precipitante è parte del trattamento.'},
+      {t:'Sospendere ogni indagine',ok:false,fb:''},
+      {t:'Dimettere subito',ok:false,fb:''}]},
+    {q:'PCR elevata: cosa aggiungi?',opts:[
+      {t:'Terapia antibiotica',ok:true,fb:'Con PCR elevata si avvia l\'antibiotico (sospetta infezione scatenante).'},
+      {t:'Cortisone',ok:false,fb:''},
+      {t:'Nulla',ok:false,fb:''}]},
+    {q:'Insulina ev iniziale (55 kg)?',opts:[
+      {t:insTxt,ok:true,fb:'Peso >30 kg → 0,1 U/kg/h. Mai boli.'},
+      {t:'Bolo 0,1 U/kg ev',ok:false,fb:''},
+      {t:'0,025 U/kg/h',ok:false,fb:''}]},
+    {q:'Volume nelle 24 ore per 55 kg?',opts:[
+      {t:'~'+vol+' mL (2,5 L/m² di superficie corporea)',ok:true,fb:'Oltre i 32 kg il volume si calcola sulla superficie corporea (2,5 L/m²), non dalla tabella; max 3 L/m².'},
+      {t:'780 mL (come da tabella per 10 kg)',ok:false,fb:''},
+      {t:'10 L',ok:false,fb:''}]},
+    {q:'Glicemia 420 elevata: fai un bolo di insulina?',opts:[
+      {t:'No, mai boli',ok:true,fb:'L\'insulina si infonde sempre in pompa, mai in bolo.'},
+      {t:'Sì, un bolo',ok:false,fb:''},
+      {t:'Sì, due boli',ok:false,fb:''}]}
+   ],
+   learn:['Nel diabete noto cercare sempre la causa scatenante','PCR elevata → antibiotico','Oltre i 32 kg il volume si calcola sulla superficie corporea','Mai boli di insulina']};
+}},
+{ name:'Caso 9', desc:'Bambino di 9 anni, 28 kg — in trattamento', build:function(){
+  const GL=TR_GL;
+  const sol = GL==='siedp' ? 'Aggiungere glucosata 5-10% mantenendo tonicità ≥0,45% + potassio' : 'Passare a glucosata 5% + NaCl 50 mEq/L + potassio';
+  return {title:'Caso 9',
+   vignette:'Bambino di 9 anni, 28 kg, in trattamento per DKA con insulina in corso. La glicemia è scesa a <b>280 mg/dL</b> (≤300).',
+   steps:[
+    {q:'Glicemia 280 (≤300) in corso di insulina: come modifichi la 2ª via?',opts:[
+      {t:sol,ok:true,fb:'A 250-300 mg/dL si introduce la glucosata mantenendo gli elettroliti.'},
+      {t:'Continuare solo con fisiologica',ok:false,fb:''},
+      {t:'Acqua libera ev',ok:false,fb:''}]},
+    {q:'L\'insulina va ridotta perché la glicemia è 280?',opts:[
+      {t:'No: a 250-300 si aggiunge glucosata e l\'insulina prosegue',ok:true,fb:'Non si riduce l\'insulina a 250-300: si aggiunge glucosio per poterla mantenere.'},
+      {t:'Sì, dimezzarla subito',ok:false,fb:''},
+      {t:'Sospendere l\'insulina',ok:false,fb:''}]},
+    {q:'Se la glicemia continua a scendere sotto 150 nonostante la glucosata 5%?',opts:[
+      {t:'Passare a glucosata 10% (e/o ridurre l\'insulina)',ok:true,fb:'Glucosata 10%, soprattutto se chetonemia ancora elevata; non ridurre oltre l\'insulina.'},
+      {t:'Aumentare l\'insulina',ok:false,fb:''},
+      {t:'Acqua libera',ok:false,fb:''}]},
+    {q:'Obiettivo glicemico durante il trattamento?',opts:[
+      {t:'Calo graduale, mantenendo la glicemia poco sotto la soglia renale',ok:true,fb:'L\'obiettivo non è normalizzare in fretta ma riequilibrare gradualmente.'},
+      {t:'Portarla subito a 90',ok:false,fb:''},
+      {t:'Mantenerla <70',ok:false,fb:''}]},
+    {q:'Come si calcola la velocità della 2ª via (3ª-24ª ora)?',opts:[
+      {t:'(Volume 24h − liquidi delle prime 2 ore) ÷ 22',ok:true,fb:'Si sottrae quanto già infuso nelle prime 2 ore e si divide per le 22 ore restanti.'},
+      {t:'Volume 24h ÷ 24',ok:false,fb:''},
+      {t:'A goccia libera',ok:false,fb:''}]}
+   ],
+   learn:['A 250-300 mg/dL → glucosata, l\'insulina prosegue','Se <150 nonostante glucosata 5% → glucosata 10%','Velocità 2ª via = (Volume 24h − prime 2h) ÷ 22']};
+}},
+{ name:'Caso 10', desc:'Ragazzo di 11 anni, 35 kg — in trattamento', build:function(){
+  const GL=TR_GL;
+  const crit = GL==='siedp' ? 'pH>7,30, HCO₃>15-18, glicemia<200 (o β-OHB<1) e si alimenta' : 'pH>7,30, HCO₃>15, glicemia<250, elettroliti nella norma e niente vomito';
+  return {title:'Caso 10',
+   vignette:'Ragazzo di 11 anni, 35 kg, dopo trattamento: pH 7,34 · HCO₃ 17 · glicemia 190 · chetonemia assente · elettroliti nella norma · si alimenta senza vomitare.',
+   steps:[
+    {q:'Criteri per sospendere l\'insulina ev e passare a sottocute?',opts:[
+      {t:crit,ok:true,fb:'Quadro biochimico risolto + capacità di alimentarsi.'},
+      {t:'Basta una glicemia <300',ok:false,fb:''},
+      {t:'Basta il pH >7,1',ok:false,fb:''}]},
+    {q:'Prima di sospendere l\'ev, cosa verifichi?',opts:[
+      {t:'Che si alimenti senza vomitare (tè e fette biscottate)',ok:true,fb:'L\'alimentazione tollerata è condizione indispensabile.'},
+      {t:'Che dorma',ok:false,fb:''},
+      {t:'Niente',ok:false,fb:''}]},
+    {q:'Come gestisci la sovrapposizione ev/sc?',opts:[
+      {t:'Mantenere l\'ev 15-30 min dopo la prima dose sc di analogo rapido',ok:true,fb:'Si evita un buco di copertura insulinica.'},
+      {t:'Stop ev immediato',ok:false,fb:''},
+      {t:'Doppia dose sc',ok:false,fb:''}]},
+    {q:'Se la risoluzione avviene di notte?',opts:[
+      {t:'Proseguire l\'infusione fino al mattino, con attenzione a ipoglicemia/ipopotassiemia',ok:true,fb:'Di notte è complesso avviare la sc: si prosegue ev fino al mattino.'},
+      {t:'Avviare comunque la sc subito',ok:false,fb:''},
+      {t:'Sospendere tutto',ok:false,fb:''}]},
+    {q:'Dopo la risoluzione dell\'acidosi la sensibilità insulinica:',opts:[
+      {t:'Aumenta → rischio di ipoglicemia e ipopotassiemia',ok:true,fb:'Calano i fabbisogni: sorvegliare glicemia e potassio.'},
+      {t:'Diminuisce',ok:false,fb:''},
+      {t:'Resta invariata',ok:false,fb:''}]}
+   ],
+   learn:['Sospendere l\'ev solo a quadro risolto e con alimentazione tollerata','Sovrapporre ev e sc per 15-30 min','Dopo la risoluzione aumenta la sensibilità insulinica (rischio ipoglicemia/ipoK)']};
+}}
+];
+function trRenderHome(){
+  if(!$('trHome')) return;
+  $('trCase').style.display='none'; $('trHome').style.display='';
+  let h='<h2 style="margin:0 0 4px">'+ICO.cap+' Esercitazione — scegli un caso</h2>';
+  h+='<p class="lead">Casi clinici simulati, a tappe con feedback. Linea guida: <b>'+(TR_GL==='siedp'?'SIEDP 2015':'OPBG 2015')+'</b>.</p>';
+  h+=CASES.map((c,i)=>'<button class="trcase" onclick="trStart('+i+')"><b>'+c.name+'</b><br><span>'+c.desc+'</span></button>').join('');
+  $('trHome').innerHTML=h;
+}
+function trHome(){ if($('trHome')){ $('trCase').style.display='none'; $('trHome').style.display=''; } }
+function trStart(i){ trState={ci:i,si:0,score:0,total:0,obj:CASES[i].build()}; $('trHome').style.display='none'; $('trCase').style.display=''; trStep(); }
+function trStep(){
+  const c=trState.obj, s=c.steps[trState.si]; s._a=false;
+  let h='<button class="btn ghost sm" onclick="trHome()">← Casi</button>';
+  h+='<h2 style="margin:10px 0 2px">'+c.title+'</h2>';
+  h+='<div class="result" style="margin:6px 0 12px">'+c.vignette+'</div>';
+  h+='<div class="trprog">Domanda '+(trState.si+1)+' di '+c.steps.length+' · punteggio '+trState.score+'/'+trState.total+'</div>';
+  h+='<h3 style="margin:4px 0 10px">'+s.q+'</h3>';
+  h+='<div id="trOpts">'+s.opts.map((o,idx)=>'<button class="tropt" onclick="trAns('+idx+')">'+o.t+'</button>').join('')+'</div><div id="trFb"></div>';
+  $('trCase').innerHTML=h;
+}
+function trAns(idx){
+  const s=trState.obj.steps[trState.si]; if(s._a) return; s._a=true; trState.total++;
+  const btns=document.querySelectorAll('#trOpts .tropt');
+  s.opts.forEach((o,i)=>{ btns[i].disabled=true; if(o.ok) btns[i].classList.add('ok'); else if(i===idx) btns[i].classList.add('no'); });
+  const ok=s.opts[idx].ok; if(ok) trState.score++;
+  const co=s.opts.find(o=>o.ok), last=trState.si>=trState.obj.steps.length-1;
+  $('trFb').innerHTML='<div class="alert '+(ok?'ok':'danger')+'" style="margin-top:12px">'+(ok?'✅ Corretto. ':'❌ Non corretto. ')+co.fb+'</div>'+
+    '<button class="btn" onclick="trNext()">'+(last?'Vedi risultato →':'Avanti →')+'</button>';
+}
+function trNext(){ if(trState.si<trState.obj.steps.length-1){ trState.si++; trStep(); } else trResult(); }
+function trResult(){
+  const c=trState.obj;
+  let h='<button class="btn ghost sm" onclick="trHome()">← Casi</button>';
+  h+='<h2 style="margin:10px 0">Risultato — '+c.title+'</h2>';
+  h+='<div class="hero"><div class="htag">Punteggio</div><div class="hbig">'+trState.score+' / '+trState.total+'</div></div>';
+  h+='<h3>Punti chiave</h3><ul style="font-size:13.5px;line-height:1.55">'+c.learn.map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+  h+='<button class="btn" onclick="trStart('+trState.ci+')">↻ Ripeti caso</button> <button class="btn ghost" onclick="trHome()">Altri casi</button>';
+  $('trCase').innerHTML=h;
+}
+
+// init
+buildNav(); buildNavBanners(); buildTimers(); TIMER_DEFS.forEach(t=>renderLog(t.id)); render(); setGuide('opbg'); updateSchedulePreview(); fillIcons();
+document.querySelectorAll('input[type=number]').forEach(i=>{ i.setAttribute('inputmode','decimal'); i.addEventListener('input',validateInputs); });
+validateInputs();
+try{ if(localStorage.getItem('dka_data')) loadLocal(); }catch(e){}
+setHeadH(); setTimeout(setHeadH,200);
+// registrazione service worker per installazione/offline (solo su HTTPS)
+if('serviceWorker' in navigator && location.protocol==='https:'){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+</script>
+</body>
+</html>
